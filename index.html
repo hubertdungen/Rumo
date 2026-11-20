@@ -130,6 +130,7 @@ td{padding:7px 8px;border-bottom:1px solid var(--line)}
 tr:last-child td{border-bottom:none}
 .cat-group{margin-bottom:4px}
 .cat-head{display:flex;align-items:center;justify-content:space-between;padding:9px 8px;background:var(--panel2);border-radius:9px;margin:10px 0 4px;cursor:pointer;font-weight:700;font-size:12.5px;letter-spacing:.3px}
+.cat-tot{margin-left:auto;margin-right:12px;display:flex;flex-direction:column;align-items:flex-end;line-height:1.25}.cat-tot b{font-size:14px;font-variant-numeric:tabular-nums}.cat-tot small{font-size:11px;font-weight:600}
 .cat-head .amt{color:var(--accent);font-weight:800}
 /* Emoji de cada secção/linha/cofre: um clique abre a grelha para o trocar. */
 .emo{flex:0 0 auto;width:30px;height:30px;min-height:auto;padding:0;border:1px solid transparent;border-radius:8px;
@@ -235,6 +236,76 @@ select.f-account[data-v=J]{border-color:rgba(245,185,66,.45);background-color:rg
 .msearch kbd{position:absolute;right:10px;top:50%;transform:translateY(-50%);font:600 10.5px/1 inherit;color:var(--dim);border:1px solid var(--line);border-radius:5px;padding:2px 5px;pointer-events:none}
 .msearch input:focus + kbd{display:none}
 .tile{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:12px 14px !important}
+.yield{margin-top:10px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);padding:0 10px}
+.yield summary{display:flex;justify-content:space-between;gap:8px;cursor:pointer;padding:8px 0;font-size:12.5px;font-weight:700;list-style:none}
+.yield summary::-webkit-details-marker{display:none}.yield[open]{padding-bottom:10px}
+.yield summary .muted{font-weight:500;font-size:11.5px;text-align:right}
+.ymode{display:flex;gap:4px;background:var(--panel);border:1px solid var(--line);border-radius:99px;padding:3px}
+.ymode button{flex:1;border:0;background:transparent;border-radius:99px;padding:5px 6px;font-size:12px;font-weight:600;color:var(--dim);cursor:pointer;min-height:28px}
+.ymode button.on{background:var(--accent);color:#04201a}
+.ybox{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:10px}.ybox div{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px 8px;display:flex;flex-direction:column;gap:1px}
+.ybox span{font-size:10.5px;color:var(--dim)}.ybox b{font-size:13.5px;color:var(--good);font-variant-numeric:tabular-nums}
+.perf-back{position:fixed;inset:0;background:rgba(4,8,12,.6);z-index:150;opacity:0;transition:opacity .2s;display:flex;justify-content:flex-end}
+.perf-back.on{opacity:1}
+.perf{background:var(--bg,var(--panel));border-left:1px solid var(--line);width:min(820px,100%);height:100%;overflow:auto;padding:16px 18px 40px;transform:translateX(40px);transition:transform .22s ease;box-shadow:-20px 0 50px rgba(0,0,0,.35)}
+.perf-back.on .perf{transform:none}
+.perf header{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px;position:sticky;top:-16px;background:inherit;padding:8px 0;z-index:2}
+.perf-title{display:flex;align-items:center;gap:8px}
+.perf-chips{display:flex;gap:6px;flex-wrap:wrap}
+.perf-chips button{border:1px solid var(--line);background:var(--panel2);color:var(--dim);border-radius:99px;padding:5px 12px;font-size:12.5px;font-weight:600;cursor:pointer;min-height:30px}
+.perf-chips button.on{background:var(--accent);border-color:var(--accent);color:#04201a}
+.perf-body{margin-top:12px}
+.perf-read{margin-top:12px;border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:10px;background:var(--panel2);padding:10px 12px;display:flex;flex-direction:column;gap:3px}
+.perf-read span{font-size:12.5px;color:var(--dim)}.perf-read p{margin:2px 0 0;font-size:13.5px}
+.perf-list{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.prow{display:grid;grid-template-columns:minmax(120px,1.3fr) 90px minmax(90px,.9fr) minmax(120px,1fr);gap:12px;align-items:center;text-align:left;width:100%;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:10px 12px;color:inherit;font:inherit;cursor:pointer;transition:transform .15s,border-color .15s}
+.prow:hover{transform:translateY(-1px);border-color:var(--dim)}
+.prow small{display:block;font-size:11px;color:var(--dim);font-weight:500}
+.pname{display:flex;gap:8px;align-items:center}.pemo{font-size:20px}
+.pnum,.pgain{display:flex;flex-direction:column;gap:1px;font-variant-numeric:tabular-nums}
+.gb{display:block;height:5px;border-radius:99px;background:var(--line);margin-top:4px;overflow:hidden}.gb u{display:block;height:100%;border-radius:99px;transition:width .5s}
+.prow-h{padding:6px 0;border-bottom:1px dashed var(--line)}.gbar{position:relative;height:6px;background:var(--line);border-radius:99px;margin-top:4px}.gbar i{position:absolute;top:0;bottom:0;border-radius:99px}
+.pbar{transition:opacity .15s}.pbar:hover{opacity:.75}
+@media(max-width:640px){.perf{padding:12px 12px 40px}.prow{grid-template-columns:1fr auto;gap:6px 10px}.prow svg{display:none}.pgain{grid-column:1/-1}}
+.perfbtn{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;margin-top:12px;border:1px solid var(--line);background:var(--panel);color:inherit;border-radius:var(--r);padding:12px 16px;cursor:pointer;font:inherit;text-align:left;transition:border-color .15s,transform .15s}
+.perfbtn:hover{border-color:var(--accent);transform:translateY(-1px)}.perfbtn b{display:block;font-size:14px}.perfbtn small{color:var(--dim);font-size:12px}
+.seg{display:inline-flex;gap:3px;background:var(--panel2);border:1px solid var(--line);border-radius:99px;padding:3px}
+.seg button{border:0;background:transparent;color:var(--dim);border-radius:99px;padding:6px 14px;font-size:12.5px;font-weight:700;cursor:pointer;min-height:30px;transition:background .2s,color .2s}
+.seg button.on{background:var(--purple);color:#fff}
+.hhead{display:flex;justify-content:flex-end;margin:4px 0 10px}
+.hchips{display:flex;gap:6px;flex-wrap:wrap}
+.hchip{display:inline-flex;border:1px solid var(--line);background:var(--panel2);border-radius:99px;overflow:hidden}
+.hchip button{border:0;background:transparent;color:inherit;font:inherit;font-size:12.5px;font-weight:600;padding:6px 10px;cursor:pointer;min-height:32px}
+.hchip button small{color:var(--dim);font-weight:500;margin-left:4px}
+.hchip.on{border-color:var(--purple);background:color-mix(in srgb,var(--purple) 16%,var(--panel2))}
+.hchip .hadd{border-left:1px solid var(--line);padding:6px 11px;color:var(--purple);font-weight:800}
+.hbar{display:flex;gap:8px;margin:10px 0;flex-wrap:wrap}.hbar input{flex:1 1 220px;min-height:34px}.hbar select{min-height:34px}
+.hcat-chip{display:inline-block;font-size:10.5px;font-weight:700;color:var(--purple);background:color-mix(in srgb,var(--purple) 14%,transparent);border-radius:99px;padding:1px 8px;margin-right:4px;vertical-align:1px}
+.hpager{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:10px;flex-wrap:wrap}
+.htile{display:flex;flex-direction:column;gap:4px;text-align:left;background:var(--panel2);border:1px solid var(--line);border-top:3px solid var(--c);border-radius:12px;padding:12px 14px;color:inherit;font:inherit;cursor:pointer;transition:transform .15s,border-color .15s}
+.htile:hover{transform:translateY(-2px);border-color:var(--c)}
+.ht-head{display:flex;align-items:baseline;gap:6px}.ht-head small{margin-left:auto;color:var(--dim);font-weight:500;font-size:11px}
+.ht-val{font-size:22px;font-weight:800;font-variant-numeric:tabular-nums}.ht-gain{font-size:13px;font-weight:700}
+.ht-w{display:block;height:5px;border-radius:99px;background:var(--line);overflow:hidden;margin-top:4px}.ht-w i{display:block;height:100%;background:var(--c);border-radius:99px}
+.idgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;align-items:start}
+@media(max-width:900px){.idgrid{grid-template-columns:1fr}}
+.idpanel{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;min-width:0}
+.idh2{font-size:13.5px;margin:14px 0 6px}.idh2 small{color:var(--dim);font-weight:500;margin-left:6px}.idh{font-size:12px;font-weight:800;margin:10px 0 4px;letter-spacing:.3px}
+.idstats{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--dim);margin-top:4px}.idstats b{color:var(--txt)}
+.idalloc{display:flex;gap:18px;align-items:center;flex-wrap:wrap}.iddonut{position:relative;width:170px;height:170px;flex:none}
+.idcenter{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none}.idcenter small{color:var(--dim);font-size:11px}.idcenter b{font-size:15px}
+.idlegend{flex:1 1 140px;display:flex;flex-direction:column;gap:6px}.idlegend div{display:flex;align-items:center;gap:8px;font-size:13px;padding:3px 6px;border-radius:8px;transition:background .15s}.idlegend div:hover{background:var(--panel)}.idlegend i{width:10px;height:10px;border-radius:50%;flex:none}.idlegend span{flex:1}
+.idtgt{margin-bottom:10px;padding:2px 0}.iddiff{border:1px solid;border-radius:99px;padding:0 7px;font-size:10.5px;font-weight:700;margin-left:4px}.dot{display:inline-block;width:8px;height:8px;border-radius:50%}
+.idseg{margin-bottom:6px}.idseg button.on{background:var(--purple);color:#fff}
+.idcols{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media(max-width:560px){.idcols{grid-template-columns:1fr}}
+.idmov{padding:5px 0;transition:transform .15s}.idmov:hover{transform:translateX(2px)}
+.idkpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px}.idkpis div{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px 8px;display:flex;flex-direction:column}.idkpis small{font-size:10.5px;color:var(--dim)}.idkpis b{font-size:16px}
+.idbar{display:grid;grid-template-columns:70px 1fr 36px;gap:8px;align-items:center;font-size:12px;padding:3px 0}.idbar i{display:block;height:7px;background:var(--line);border-radius:99px;overflow:hidden}.idbar u{display:block;height:100%;background:var(--purple);border-radius:99px;transition:width .5s}.idbar b{text-align:right}
+.idtips{display:flex;flex-direction:column;gap:8px}.idtips div{display:flex;gap:10px;align-items:flex-start;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:8px 12px}.idtips span{font-size:18px}.idtips p{margin:0;font-size:13px}
+.legend3.dest > div{padding:12px 14px}.dest .n{font-size:12px;font-weight:700;color:var(--c);display:flex;gap:6px;align-items:center}
+.dest .dest-note{min-height:32px;margin:2px 0 6px}.dest .v{font-size:22px}.dest-lines{margin-top:10px;padding-top:8px;border-top:1px dashed var(--line);display:flex;flex-direction:column;gap:4px}
+.dest-lines .ln{display:flex;justify-content:space-between;gap:8px;font-size:13px}.dest-go{color:var(--c);cursor:pointer;font-size:13px;font-weight:600;text-decoration:none}.dest-go:hover{text-decoration:underline}
+@media(max-width:900px){.dest{grid-template-columns:1fr}.dest .dest-note{min-height:0}}
 .legend3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
 .legend3 > div{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:8px 12px;border-left:3px solid var(--c)}
 .legend3 .n{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.4px}
@@ -474,15 +545,80 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
 </div>
 
 <script src="emoji.js"></script>
+<script src="i18n-en.js"></script>
 <script>
 'use strict';
+
+// ------------------------------------------------------------------ i18n --
+/* A app está escrita em pt-PT; em inglês (o idioma por omissão) cada texto passa por i18n-en.js
+   (frases exactas e padrões com {}), que traduz os nós de texto e os atributos ao serem criados. */
+let LANG = 'en';
+try { LANG = localStorage.getItem('rumo.lang') === 'pt-PT' ? 'pt-PT' : 'en'; } catch(e){}
+const LOC = LANG === 'en' ? 'en-GB' : 'pt-PT', DEC = LANG === 'en' ? '.' : ',';
+const tr = (() => {
+  const D = window.I18N_EN || {exact: {}, pats: []};
+  const pats = D.pats.map(([pt, en]) => [new RegExp('^' + pt.replace(/[.*+?^$()|[\]\\]/g, '\\$&').replace(/\{#\}/g, '([^\\s]*\\d[^\\s]*(?: [^\\s\\d]{1,3})?)').replace(/\{\}/g, '([\\s\\S]+?)') + '$'), en]);
+  const months = {FEV: 'FEB', ABR: 'APR', MAI: 'MAY', AGO: 'AUG', SET: 'SEP', OUT: 'OCT', DEZ: 'DEC'};
+  const has = c => Object.prototype.hasOwnProperty.call(D.exact, c);
+  const seps = [' — ', ': ', '. ', '; ', ' · ', ' (', ', '];
+  const trimLook = c => { const m = /^(\s*)([\s\S]*?)(\s*)$/.exec(c); return m[2] ? m[1] + look(m[2]) + m[3] : c; };
+  const look = c => {
+    if (has(c)) return D.exact[c];
+    for (const [re, en] of pats){
+      const m = re.exec(c);
+      if (m) return en.replace(/\{(\d)\}/g, (_, i) => trimLook(m[i]));
+    }
+    // frases compostas pelo código: emoji ou símbolos à frente, ou pedaços separados por pontuação
+    const lead = /^[^\p{L}]+/u.exec(c);
+    if (lead && lead[0].length < c.length){ const r = look(c.slice(lead[0].length)); if (r !== c.slice(lead[0].length)) return lead[0] + r; }
+    if (c.length < 600) for (const sep of seps){
+      const i = c.indexOf(sep);
+      if (i > 0){
+        const l = c.slice(0, i), r = c.slice(i + sep.length), tl = look(l), tr2 = look(r);
+        if (tl !== l || tr2 !== r) return tl + sep + tr2;
+      }
+    }
+    return c.replace(/\b(FEV|ABR|MAI|AGO|SET|OUT|DEZ)\b/g, w => months[w]);
+  };
+  return s => {
+    if (LANG !== 'en' || !s) return s;
+    const m = /^(\s*)([\s\S]*?)(\s*)$/.exec(s);
+    return m[2] ? m[1] + look(m[2].replace(/\s+/g, ' ')) + m[3] : s;
+  };
+})();
+if (LANG === 'en'){
+  const ATTRS = ['title', 'placeholder', 'aria-label', 'alt'], SKIP = /^(SCRIPT|STYLE|TEXTAREA)$/;
+  const fix = root => {
+    if (root.nodeType === 3){
+      if (root.parentNode && SKIP.test(root.parentNode.nodeName)) return;
+      const t = tr(root.nodeValue); if (t !== root.nodeValue) root.nodeValue = t;
+      return;
+    }
+    if (root.nodeType !== 1 || SKIP.test(root.nodeName)) return;
+    const walk = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT);
+    for (let n = root; n; n = walk.nextNode()){
+      if (n.nodeType === 3){ if (!SKIP.test(n.parentNode.nodeName)) { const t = tr(n.nodeValue); if (t !== n.nodeValue) n.nodeValue = t; } }
+      else if (!SKIP.test(n.nodeName)) for (const a of ATTRS){ const v = n.getAttribute(a); if (v){ const t = tr(v); if (t !== v) n.setAttribute(a, t); } }
+    }
+  };
+  document.documentElement.lang = 'en';
+  document.title = tr(document.title);
+  fix(document.body);
+  new MutationObserver(ms => ms.forEach(m => {
+    if (m.type === 'childList') m.addedNodes.forEach(fix);
+    else if (m.type === 'characterData') fix(m.target);
+    else { const v = m.target.getAttribute(m.attributeName); if (v){ const t = tr(v); if (t !== v) m.target.setAttribute(m.attributeName, t); } }
+  })).observe(document.body, {childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ATTRS});
+  const _confirm = window.confirm.bind(window); window.confirm = m => _confirm(tr(m));
+  const _alert = window.alert.bind(window); window.alert = m => _alert(tr(m));
+}
 
 // ---------------------------------------------------------------- helpers --
 const $ = (sel, root=document) => root.querySelector(sel);
 const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
-const fmt = (n) => (n==null||isNaN(n) ? '—' : n.toLocaleString('pt-PT', {minimumFractionDigits:2, maximumFractionDigits:2}));
+const fmt = (n) => (n==null||isNaN(n) ? '—' : n.toLocaleString(LOC, {minimumFractionDigits:2, maximumFractionDigits:2}));
 let CURRENCY = 'EUR';
-const curSym = c => { try { return (0).toLocaleString('pt-PT', {style:'currency', currency:c, currencyDisplay:'narrowSymbol'}).replace(/[\d\s.,\u00a0]/g, '') || c; } catch(e){ return c; } };
+const curSym = c => { try { return (0).toLocaleString(LOC, {style:'currency', currency:c, currencyDisplay:'narrowSymbol'}).replace(/[\d\s.,\u00a0]/g, '') || c; } catch(e){ return c; } };
 const eur = (n) => fmt(n) + ' ' + curSym(CURRENCY);
 // A moeda de base e outra para o custo de uma posição (por omissão, dólares; em dólares, euros).
 const curOptions = () => { const other = CURRENCY === 'USD' ? 'EUR' : 'USD'; return `<option value="${CURRENCY}">${curSym(CURRENCY)}</option><option value="${other}">${curSym(other)}</option>`; };
@@ -535,7 +671,11 @@ const toNum = (s) => {
   let t = String(s ?? '').trim().replace(/[\s\u00a0€$]/g, '');
   if (!t) return 0;
   // With a comma present the dots can only be thousands separators (1.234,56).
-  t = t.includes(',') ? t.replace(/\./g, '').replace(/,/g, '.') : t;
+  // Com vírgula e ponto juntos, o último separador é o decimal (1.234,56 ou 1,234.56); só vírgula = decimal.
+  if (t.includes(',') && t.includes('.')){
+    const dec = t.lastIndexOf(',') > t.lastIndexOf('.') ? ',' : '.';
+    t = dec === ',' ? t.replace(/\./g, '').replace(',', '.') : t.replace(/,/g, '');
+  } else if (t.includes(',')) t = t.replace(/,/g, '.');
   if (/^[0-9.+\-*/()]+$/.test(t)){
     const v = evalExpr(t);
     if (!isNaN(v) && isFinite(v)) return v;
@@ -549,7 +689,7 @@ const pct = (n) => (n==null||isNaN(n) ? '—' : Math.round(n*1000)/10 + '%');
 const qtyStr = (n) => {
   if (n == null || isNaN(n)) return '';
   return (Math.abs(n) < 1 ? n.toFixed(8) : n.toFixed(6))
-    .replace(/0+$/, '').replace(/\.$/, '').replace('.', ',');
+    .replace(/0+$/, '').replace(/\.$/, '').replace('.', DEC);
 };
 const clamp01 = (n) => Math.max(0, Math.min(1, n));
 let toastTimer = null;
@@ -750,6 +890,8 @@ async function boot(){
   S.templates = tplRes.templates;
   S.settings = setRes.settings;
   CURRENCY = S.settings.currency || 'EUR';
+  const wantLang = S.settings.language === 'pt-PT' ? 'pt-PT' : 'en';
+  if (wantLang !== LANG){ try { localStorage.setItem('rumo.lang', wantLang); } catch(e){} location.reload(); return; }
   S.holdings = holdRes.holdings;
   const view = loadView();
   const savedIdx = S.months.findIndex(m => m.id === view.monthId);
@@ -995,7 +1137,7 @@ function wireSectionDrag(container){
 }
 
 // O mesmo que INCOME_CATEGORIES no servidor: estas secções são dinheiro que entra.
-const INCOME_CATS = new Set(['LUCROS', 'LUCRO', 'RENDIMENTOS', 'RECEITAS', 'ENTRADAS']);
+const INCOME_CATS = new Set(['LUCROS', 'LUCRO', 'RENDIMENTOS', 'RECEITAS', 'ENTRADAS', 'INCOME', 'PROFITS', 'EARNINGS']);
 const isIncomeCat = c => INCOME_CATS.has(String(c || '').trim().toUpperCase());
 
 // --------------------------------------------------------------- movimentos --
@@ -1062,7 +1204,7 @@ function rebalanceHtml(kind){
       <td class="n">${after.toFixed(1)}%</td><td class="n ${d > 0.05 ? 'up' : d < -0.05 ? 'down' : ''}">${Math.abs(d) < 0.05 ? '=' : (d > 0 ? '+' : '') + d.toFixed(1)}</td>
       <td>${escAttr(fixed ? 'fixo' : locked ? 'bloqueado' : (r.reasons[id] || (Math.abs(d) < 0.05 ? 'sem razão para mudar' : 'acerto para a soma dar 100%')))}</td></tr>`;
   }).join('');
-  const when = new Date(r.at * 1000).toLocaleString('pt-PT', {dateStyle: 'short', timeStyle: 'short'});
+  const when = new Date(r.at * 1000).toLocaleString(LOC, {dateStyle: 'short', timeStyle: 'short'});
   return `<div class="card rebal">
     <div class="flexrow"><h2 style="margin:0">Ajuste da IA <span class="sub" style="font-weight:400">· ${when} · ${escAttr(r.provider || '')}</span></h2>
       ${r.undone ? '<span class="pill">desfeito</span>' : `<button class="small" data-undo="${kind}">Desfazer</button>`}</div>
@@ -1160,7 +1302,7 @@ function renderMovesTab(){
       <div><div class="move-title">${st.go ? `<a class="move-go" data-tab="${st.go[0]}" data-sel='${st.go[1]}' title="abrir onde este valor se muda">${st.title}<span class="move-fix" aria-hidden="true">↗</span></a>` : st.title}</div>
         <div class="move-route">${st.route.map(r => r.startsWith('→') ? `<span>${r}</span>` : `<b>${r}</b>`).join(' ')}</div>${st.extra}</div>
       <div class="move-side"><div class="move-amt">${eur(st.amount)}</div>
-        <button class="small ghost f-copy" data-v="${st.amount.toFixed(2).replace('.', ',')}" title="copiar o valor">copiar</button>
+        <button class="small ghost f-copy" data-v="${st.amount.toFixed(2).replace('.', DEC)}" title="copiar o valor">copiar</button>
         <button class="small f-done">${done[st.key] ? 'desfazer' : 'feito'}</button></div>
     </div>`;
   }).join('');
@@ -1168,14 +1310,22 @@ function renderMovesTab(){
   el.innerHTML = `
     <div class="card">
       <div class="flexrow"><h2 style="margin:0">Movimentos de ${m.month_name} ${m.year}</h2>
-        <span class="pill ${count === steps.length && steps.length ? 'good' : ''}">${count} de ${steps.length} feitos</span></div>
-      <div class="sub" style="margin-top:6px">Por esta ordem, com os valores do mês (separadores Mês, Poupanças e Investir). «feito» fica guardado no mês e aparece igual no Bolso.</div>
+        <span class="flexrow" style="gap:8px"><span class="pill ${count === steps.length && steps.length ? 'good' : ''}">${count} de ${steps.length} feitos</span>
+          <button class="small" id="movesAll" ${count === steps.length ? 'disabled' : ''}>feito em tudo</button>
+          <button class="small ghost" id="movesNone" ${count ? '' : 'disabled'}>desfazer tudo</button></span></div>
+      <div class="sub" style="margin-top:6px">Por esta ordem, com os valores do mês (separadores Mês, Poupanças e Investir). «feito» fica guardado no mês.</div>
     </div>
     <div class="section-gap">${html || '<div class="sub">sem movimentos este mês</div>'}</div>
     <div class="card section-gap">
       <h2 style="margin:0 0 6px">Fica livre para gastar: ${eur(free)}</h2>
       <div class="sub">${transferOn() ? `${accS} ${eur(m.cc_livre || 0)} · ${accR} ${eur(m.livre_resto || 0)}` : 'depois de pagar tudo e de pôr a poupança de parte'}${m.no_savings ? ' · mês marcado sem poupança' : ''}</div>
     </div>`;
+  const setAll = on => async () => {
+    for (const st of steps) if (!!done[st.key] !== on) await setMoveDone(m, st.key, on);
+    renderMovesTab();
+  };
+  $('#movesAll', el).onclick = setAll(true);
+  $('#movesNone', el).onclick = async () => { if (confirm('Desfazer a marca «feito» de todos os movimentos deste mês?')) await setAll(false)(); };
   $$('[data-sel]', el).forEach(a => a.onclick = e => { e.preventDefault(); goToSource(a.dataset.tab, a.dataset.sel); });
   $$('.move', el).forEach(card => {
     card.querySelector('.f-done').onclick = () => setMoveDone(m, card.dataset.key, !done[card.dataset.key]).then(renderMovesTab, () => {});
@@ -1315,7 +1465,7 @@ const CHARTS = new Map(); let chartSeq = 0;
 const compact = v => Math.abs(v) >= 1000 ? (v/1000).toFixed(1).replace('.0','') + 'k' : Math.abs(v) < 10 ? v.toFixed(1).replace('.0','') : String(Math.round(v));
 function lineChart(labels, series, opts={}){
   const w = opts.w || 640, h = opts.h || 200, padL = 40, padR = 14, padT = 12, padB = 26;
-  const allVals = series.flatMap(s=>s.values);
+  const allVals = series.flatMap(s=>s.values).filter(v => v != null);
   const min = Math.min(0, ...allVals), max = Math.max(1, ...allVals);
   const range = (max-min) || 1;
   const n = labels.length;
@@ -1331,17 +1481,18 @@ function lineChart(labels, series, opts={}){
   }
   let paths = '';
   series.forEach(s => {
-    const pts = s.values.map((v,i)=>[x(i), y(v)]);
-    const d = pts.map((p,i)=>(i===0?'M':'L')+p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ');
-    paths += `<path class="lp" pathLength="1" d="${d}" fill="none" stroke="${s.color}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>`;
-    if (n <= 40) pts.forEach(p => paths += `<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="2.6" fill="${s.color}"/>`);
-    const l = pts[pts.length-1];
-    if (l) paths += `<circle cx="${l[0].toFixed(1)}" cy="${l[1].toFixed(1)}" r="4.5" fill="${s.color}" stroke="var(--panel)" stroke-width="2"/>`;
+    const pts = s.values.map((v,i)=> v == null ? null : [x(i), y(v)]);
+    let d = '', pen = false;
+    pts.forEach(p => { if (!p){ pen = false; return; } d += (pen ? 'L' : 'M') + p[0].toFixed(1) + ',' + p[1].toFixed(1) + ' '; pen = true; });
+    paths += `<path class="lp" pathLength="1" d="${d}" fill="none" stroke="${s.color}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"${s.dashed ? ' stroke-dasharray="6 5" opacity=".8"' : ''}/>`;
+    if (n <= 40) pts.forEach(p => { if (p) paths += `<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="2.6" fill="${s.color}"/>`; });
+    const l = pts.filter(Boolean).pop();
+    if (l && !s.dashed) paths += `<circle cx="${l[0].toFixed(1)}" cy="${l[1].toFixed(1)}" r="4.5" fill="${s.color}" stroke="var(--panel)" stroke-width="2"/>`;
   });
   let labelsSvg = '';
   labels.forEach((l,i) => {
     if (n > 8 && i % 2 !== 0 && i !== n-1) return;
-    labelsSvg += `<text x="${x(i).toFixed(1)}" y="${h-8}" font-size="9.5" fill="var(--dim)" text-anchor="middle">${l}</text>`;
+    labelsSvg += `<text x="${x(i).toFixed(1)}" y="${h-8}" font-size="9.5" fill="var(--dim)" text-anchor="${i === n-1 && n > 3 ? 'end' : 'middle'}">${l}</text>`;
   });
   const id = 'c' + (++chartSeq);
   CHARTS.set(id, {labels: opts.tipLabels || labels, series, w, n, padL, stepX, x, y});
@@ -1377,7 +1528,7 @@ if (!window.__rumoTip){
     const i = Math.max(0, Math.min(c.n-1, Math.round(((e.clientX - r.left) / r.width * c.w - c.padL) / c.stepX)));
     const g = svg.querySelector('.cguide'); g.setAttribute('x1', c.x(i)); g.setAttribute('x2', c.x(i)); g.setAttribute('opacity', .7);
     tip.innerHTML = `<div class="tl">${c.labels[i] || ''}</div>` + c.series.map(sr =>
-      `<div><i style="background:${sr.color}"></i>${sr.name ? sr.name + ' · ' : ''}<b>${eur(sr.values[i])}</b></div>`).join('');
+      `<div><i style="background:${sr.color}"></i>${sr.name ? sr.name + ' · ' : ''}<b>${sr.values[i] == null ? '—' : eur(sr.values[i])}</b></div>`).join('');
     tip.classList.add('on'); place(e);
   };
   document.addEventListener('pointermove', show);
@@ -1484,6 +1635,7 @@ function renderDashboard(){
   el.innerHTML = `
     ${histNote}${estNote}
     ${patrimonioHero(m, prev)}
+    <button type="button" class="perfbtn" data-perf="overview"><span><b>📊 Desempenho detalhado</b><small>Histórico e crescimento de cada conta, cofre e investimento: o que rendeu ou se perdeu.</small></span><span aria-hidden="true">→</span></button>
     <div class="grid cols-5 section-gap">
       <div class="card metric"${tipAttr(tipRows('Rendimento', [['Ordenado', eur(m.ordenado)], ['Extras', eur(m.extras)], (m.fatia_income ? ['Fatia', eur(m.fatia_income)] : null), ['Total', eur(rendimento)]], prev ? `Mês anterior: ${eur(rendimentoPrev)}` : ''))}><div class="lbl">Rendimento</div><div class="val">${eur(rendimento)}</div>${deltaSpan(rendimento, rendimentoPrev)}</div>
       <div class="card metric"${tipAttr(tipRows('Despesas', [[transferOn() ? accLabel('S') : 'Despesas', eur(m.despesas_santander)], (transferOn() ? [accLabel('R'), eur(m.despesas_revolut)] : null), (m.joint_transfer_total ? ['Da casa (tua parte)', eur(m.joint_transfer_total)] : null), ['Do rendimento', (rendimento > 0 ? Math.round(despesasTotal/rendimento*100) : 0) + '%']], prev ? `Mês anterior: ${eur(despesasPrev)}` : ''))}><div class="lbl">Despesas</div><div class="val">${eur(despesasTotal)}</div>${deltaSpan(despesasTotal, despesasPrev, false)}
@@ -1649,6 +1801,7 @@ function renderInvestmentsCard(m){
     return `<div class="card section-gap"><h2>Investimentos</h2>
       <div class="sub">Ainda não há posições. Adiciona-as em Poupanças &gt; Posições de investimento e este painel enche-se sozinho.</div></div>`;
   }
+  if (typeof invDashCard === 'function') return invDashCard(m, st);
   const gain = st.quoted - st.cost;
   const gainPct = st.cost ? (gain / st.cost) * 100 : null;
   const col = v => v >= 0 ? 'var(--good)' : 'var(--bad)';
@@ -1984,7 +2137,7 @@ function jointMonthCard(m){
   const op = t => `<div class="op">${t}</div>`;
   return `
     <div class="card section-gap jcard">
-      <div class="flexrow"><h2 style="margin:0">🏠 ${jointName()} ${transferOn() && jointFrom() === 'S' ? `<span class="pill" style="color:var(--rev);border-color:color-mix(in srgb,var(--rev) 45%,var(--line));margin-left:6px;vertical-align:middle">na ${accLabel('R')}</span>` : ''}</h2>
+      <div class="flexrow"><h2 style="margin:0">🏠 ${jointName()} ${transferOn() && jointFrom() === 'S' ? `<span class="pill" style="color:var(--rev);border-color:color-mix(in srgb,var(--rev) 45%,var(--line));margin-left:6px;vertical-align:middle">${LANG === 'en' ? 'in' : 'na'} ${accLabel('R')}</span>` : ''}</h2>
         <span class="pill" title="a tua parte das despesas da casa">a tua parte: ${pct(m.joint_share)} · ${m.joint_share_custom ? 'só este mês' : ruleShare}</span></div>
       <div class="sub" style="margin-top:4px">${transferOn() && jointFrom() === 'S'
         ? `A conta fica na ${accLabel('R')}: transferes a tua parte da ${accLabel('S')} para a ${accLabel('R')} e ${partnerName()} põe a parte correspondente. Daí paga-se a casa.`
@@ -2159,7 +2312,7 @@ function onEditGesture(el, fn){
   });
   el.addEventListener('pointermove', cancel); el.addEventListener('pointercancel', cancel);
 }
-const fmtPct = p => String(Math.round((Number(p) || 0) * 1000) / 10).replace('.', ',');
+const fmtPct = p => String(Math.round((Number(p) || 0) * 1000) / 10).replace('.', DEC);
 // Percentagem e valor lado a lado, os dois escrevíveis: mexer num acerta o outro e o cursor.
 function dualBox(key, p, base){
   return `<div class="dual" data-key="${key}" data-base="${Number(base) || 0}">
@@ -2188,7 +2341,7 @@ function fatiaIncomeLine(m){
   if (!jobs.length) return '';
   const n = jobs.length;
   const rows = jobs.map(j => {
-    const d = new Date(j.criado*1000).toLocaleDateString('pt-PT', {day:'numeric', month:'short'});
+    const d = new Date(j.criado*1000).toLocaleDateString(LOC, {day:'numeric', month:'short'});
     return `<div class="row" style="justify-content:space-between"><span>${d} · ${escAttr(j.cliente || 'sem cliente')} — ${escAttr(j.projeto || 'sem nome')}</span><b>${eur(j.total)}</b></div>`;
   }).join('');
   return `<details style="margin-top:10px">
@@ -2472,6 +2625,28 @@ function goalRow(p){
     </div>`;
 }
 
+function yieldRow(p){
+  const mode = p.rate_mode || 'none', it = p.interest;
+  const sum = mode === 'tanb' ? `TANB ${fmtPct(p.rate_value / 100)}%` : mode === 'eur' ? `${eur(p.rate_value)} por mês` : 'sem juros';
+  const modes = [['none', 'Sem juros'], ['tanb', 'TANB %'], ['eur', 'Valor €']];
+  return `<details class="yield"${mode !== 'none' ? ' open' : ''}>
+    <summary><span>📈 Rendimento</span><span class="muted">${sum}${it ? ` · +${eur(it.per_month_next)}/mês` : ''}</span></summary>
+    <div class="ymode" role="radiogroup" aria-label="tipo de rendimento">${modes.map(([k, n]) => `<button type="button" role="radio" aria-checked="${k === mode}" data-rm="${k}" class="${k === mode ? 'on' : ''}">${n}</button>`).join('')}</div>
+    ${mode === 'tanb' ? `<div class="grid cols-2" style="gap:8px;margin-top:8px">
+        <div class="field"><label>TANB (% ao ano)</label><input class="f-rate-val" type="text" inputmode="decimal" value="${p.rate_value ? fmt(p.rate_value) : ''}" placeholder="ex.: 2,5"></div>
+        <div class="field"><label>Imposto sobre os juros (%)</label><input class="f-rate-tax" type="text" inputmode="decimal" value="${p.rate_tax ? fmt(p.rate_tax) : ''}" placeholder="0"></div></div>
+      <div class="small muted" style="margin-top:4px">A TANB é bruta. Se a conta retém imposto sobre os juros, indica a taxa (em Portugal, 28 %); deixa vazio se o valor já for líquido.</div>`
+    : mode === 'eur' ? `<div class="field" style="margin-top:8px"><label>Juros por mês (€, líquidos)</label><input class="f-rate-val" type="text" inputmode="decimal" value="${p.rate_value ? fmt(p.rate_value) : ''}" placeholder="ex.: 3,50"></div>
+      <div class="small muted" style="margin-top:4px">Para contas ou fundos que pagam um valor mais ou menos fixo por mês.</div>` : `<div class="small muted" style="margin-top:8px">Para contas poupança, depósitos ou fundos monetários que rendem juros: indica a TANB ou o valor em € e a app prevê os juros e acelera a previsão do objetivo.</div>`}
+    ${it ? `<div class="ybox">
+        <div><span>Juros este mês</span><b>+${eur(it.this_month)}</b></div>
+        <div><span>Próximo mês</span><b>+${eur(it.per_month_next)}</b></div>
+        <div><span>Em 12 meses</span><b>+${eur(it.next12)}</b></div>
+        <div><span>Saldo previsto em 12 meses</span><b>${eur(it.projection[it.projection.length - 1])}</b></div>
+      </div><div class="small muted" style="margin-top:4px">Previsão: o saldo atual, a entrada mensal média dos últimos meses e os juros. Não altera o saldo; acerta-o com o «valor real» quando o banco os creditar.</div>` : ''}
+  </details>`;
+}
+
 function potCard(p, kind){
   const accentStyle = kind === 'inv' ? ' style="color:var(--purple)"' : '';
   return `
@@ -2480,6 +2655,7 @@ function potCard(p, kind){
         <div class="name-cell" style="flex:1 1 auto">${emoBtn(kind === 'inv' ? 'inv' : 'pot', p.name, kind === 'inv' ? '📊' : '💰')}<input class="f-name" value="${escAttr(p.name)}" style="font-weight:700;border:none;background:transparent;padding:0;font-size:14px"></div>
         ${kind === 'pot' && Number(p.level) === 1 ? '<span class="f-lock locked" title="cofre fixo: a IA não mexe">📌</span>'
           : `<button class="ghost icon-btn f-lock${p.ai_locked ? ' locked' : ''}" title="${p.ai_locked ? 'bloqueado: a IA não mexe nesta %. Clica para a deixar ajustar' : 'a IA pode ajustar esta %. Clica para bloquear'}">${p.ai_locked ? '🔒' : '🤖'}</button>`}
+        <button class="ghost icon-btn f-perf" title="ver o desempenho (histórico e crescimento)">📊</button>
         <span class="drag-handle" title="arrastar para reordenar">⠿</span>
         <button class="ghost icon-btn f-del">✕</button>
       </div>
@@ -2488,6 +2664,7 @@ function potCard(p, kind){
       ${kind === 'pot' ? potKindRow(p) : ''}
       ${kind === 'pot' ? goalRow(p) : ''}
       ${openingRow(p)}
+      ${kind === 'pot' ? yieldRow(p) : ''}
       ${kind === 'pot' ? `
       <div class="grid cols-2" style="gap:8px;margin-top:8px">
         <div class="field"><label>Objetivo (€)</label>
@@ -2512,37 +2689,47 @@ function renderPotsTab(){
 
   el.innerHTML = `
     <div class="card">
-      <h2>Divisão da poupança mensal</h2>
+      <div class="flexrow" style="margin-bottom:4px"><h2 style="margin:0">Divisão da poupança mensal</h2>
+        <span class="pill">a dividir este mês: <b>${eur(m.poupanca_total)}</b></span></div>
+      <div class="sub" style="margin:0 0 10px">O que sobra para poupar divide-se por três destinos. Cada percentagem é a parte que vai para esse destino.</div>
       <div class="split-bar" style="height:30px">
         <div style="width:${(m.split_geral*100).toFixed(1)}%;background:var(--accent)">${m.split_geral>0.1?'Geral '+pct(m.split_geral):''}</div>
         <div style="width:${(m.split_cofres*100).toFixed(1)}%;background:var(--gold)">${m.split_cofres>0.1?'Cofres '+pct(m.split_cofres):''}</div>
         <div style="width:${(m.split_investimentos*100).toFixed(1)}%;background:var(--purple)">${m.split_investimentos>0.1?'Investimentos '+pct(m.split_investimentos):''}</div>
       </div>
-      <div class="legend3 stiles">
-        ${[['geral','Geral','var(--accent)','f-split-geral',m.split_geral],['cofres','Cofres','var(--gold)','f-split-cofres',m.split_cofres],['investimentos','Investimentos','var(--purple)','f-split-inv',m.split_investimentos]].map(([k,n,c,id,v]) => {
+      <div class="legend3 stiles dest">
+        ${[['geral','Poupança Geral','var(--accent)','f-split-geral',m.split_geral],['cofres','Cofres','var(--gold)','f-split-cofres',m.split_cofres],['investimentos','Investimentos','var(--purple)','f-split-inv',m.split_investimentos]].map(([k,n,c,id,v]) => {
           const isAuto = autoBalance && autoKey === k;
+          const note = {geral: 'Fundo livre, sem objetivo definido. Fica na conta de poupança.', cofres: 'Objetivos específicos (férias, carro…), repartidos pelos cofres mais abaixo.', investimentos: 'Segue para o separador Investir (ações, cripto, ouro…).'}[k];
+          const gShare = m.poupanca_total * v, gExtra = (m.geral_this_month || 0) - gShare;
+          const extra = k === 'geral' ? `
+            <div class="dest-lines">
+              <div class="ln"><span>A transferir este mês</span><b style="color:var(--gold)">${eur(m.geral_this_month)}</b></div>
+              ${Math.abs(gExtra) >= 0.005 ? `<div class="small muted">${eur(gShare)} da divisão ${gExtra > 0 ? '+' : '−'} ${eur(Math.abs(gExtra))} de arredondamentos dos cofres</div>` : ''}
+              <div class="ln"><span>Total acumulado na Geral</span><b style="color:var(--accent)">${eur(m.geral_acumulado)}</b></div>
+            </div>
+            <div class="field" style="margin-top:8px">
+              ${targetModeOn() ? `
+                <label>Valor real no fim do mês anterior</label>
+                <input id="f-geral-opening" type="text" inputmode="decimal" value="${(Math.round((m.geral_acumulado - m.geral_this_month) * 100) / 100).toFixed(2)}">
+                <div class="small muted" style="margin-top:3px">Quanto tinhas mesmo na Geral no fim do mês passado; a app soma o que se junta este mês.</div>
+              ` : `
+                <label>Saldo inicial Geral (ajuste manual)</label>
+                <input id="f-geral-opening" type="text" inputmode="decimal" value="${Math.round(m.geral_opening_balance * 100) / 100}">
+                <div class="small muted" style="margin-top:3px">Soma-se ao acumulado a partir de agora, para o acertar com o valor real.</div>
+              `}
+            </div>`
+            : k === 'cofres' ? `<div class="dest-lines"><a class="dest-go" data-goto="#potsGrid">ver os ${S.pots.filter(p => p.active).length} cofres ↓</a></div>`
+            : `<div class="dest-lines"><a class="dest-go" data-showtab="invest">abrir Investir →</a></div>`;
           return `<div style="--c:${c}"><div class="n">${n}${isAuto ? ' <span class="autob" title="ajusta-se sozinho para a divisão somar 100%">auto</span>' : ''}</div>
-            <div class="v${isAuto ? '' : ' editable'}" data-edit="${k}" ${isAuto ? '' : 'title="duplo clique (ou toque duplo / premir) para escrever o valor"'}>${eur(m.poupanca_total * v)}</div>
-            <label class="pctin"><input id="${id}" class="${over ? 'over' : ''}" type="text" inputmode="decimal" value="${(v*100).toFixed(1)}" ${isAuto ? 'disabled' : ''} aria-label="% ${n}"><span>%</span></label></div>`;
+            <div class="small muted dest-note">${note}</div>
+            <div class="v${isAuto ? '' : ' editable'}" data-edit="${k}" ${isAuto ? '' : 'title="duplo clique (ou toque duplo / premir) para escrever o valor"'}>${eur(gShare)}</div>
+            <label class="pctin"><input id="${id}" class="${over ? 'over' : ''}" type="text" inputmode="decimal" value="${(v*100).toFixed(1)}" ${isAuto ? 'disabled' : ''} aria-label="% ${n}"><span>%</span> <span class="small muted">da poupança do mês</span></label>
+            ${extra}</div>`;
         }).join('')}
       </div>
       ${over ? `<div class="split-warn" role="alert">A divisão soma ${pct(splitSum)}: passa dos 100%. Baixa uma das percentagens${autoBalance ? '' : ' ou liga o ajuste automático nas Definições'}.</div>`
         : (!autoBalance && splitSum < 0.9995 ? `<div class="sub" style="margin-top:8px">Soma ${pct(splitSum)}: o que falta (${eur((1-splitSum)*m.poupanca_total)}) vai para a Poupança Geral.</div>` : '')}
-      <div class="grid cols-3" style="margin-top:12px;align-items:start">
-        <div class="metric tile"><div class="lbl">Transferir p/ Geral este mês</div><div class="val" style="color:var(--gold)">${eur(m.geral_this_month)}</div></div>
-        <div class="metric tile"><div class="lbl">Poupança Geral acumulada</div><div class="val" style="color:var(--accent)">${eur(m.geral_acumulado)}</div></div>
-        <div class="field">
-          ${targetModeOn() ? `
-            <label>Valor real no fim do mês anterior</label>
-            <input id="f-geral-opening" type="text" inputmode="decimal" step="0.01" value="${(m.geral_acumulado - m.geral_this_month).toFixed(2)}">
-            <div class="sub" style="margin-top:3px">Escreve quanto tinhas mesmo no fim do mês passado — a app soma o que já se junta este mês e mostra o total actualizado acima.</div>
-          ` : `
-            <label>Saldo inicial Geral (ajuste manual)</label>
-            <input id="f-geral-opening" type="text" inputmode="decimal" step="0.01" value="${Math.round(m.geral_opening_balance * 100) / 100}">
-            <div class="sub" style="margin-top:3px">Soma-se ao acumulado a partir de agora — usa para corrigir o total para o valor real.</div>
-          `}
-        </div>
-      </div>
     </div>
 
     <div class="card section-gap">
@@ -2612,7 +2799,7 @@ function renderMarketOverview(){
         ${perfPill(x.day_change_pct, 2)}
       </div>
       <div style="font-size:17px;font-weight:800;margin:6px 0 5px;font-variant-numeric:tabular-nums">
-        ${x.price == null ? '—' : x.price.toLocaleString('pt-PT', {maximumFractionDigits:2})}
+        ${x.price == null ? '—' : x.price.toLocaleString(LOC, {maximumFractionDigits:2})}
         <span class="muted" style="font-size:11px;font-weight:600">${escAttr(x.currency||'')}</span>
       </div>
       <div class="row small" style="gap:5px;flex-wrap:wrap">
@@ -2660,7 +2847,7 @@ function adviceHtml(key, emptyText){
   const provider = PROVIDER_NAMES[a.provider] || a.provider || '';
   const modeName = {user_focused:'segue as minhas %', balanced:'equilibrado', autonomous:'autónomo'}[a.mode] || '';
   // The server stamps unix seconds; Date wants milliseconds, or it reads as 1970.
-  const when = a.at ? new Date(a.at * 1000).toLocaleString('pt-PT', {day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit'}) : '';
+  const when = a.at ? new Date(a.at * 1000).toLocaleString(LOC, {day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit'}) : '';
   const stale = [];
   if (a.provider && S.settings.ai_provider && a.provider !== S.settings.ai_provider) stale.push('mudaste de fornecedor desde então');
   if (a.mode && S.settings.ai_advice_mode && a.mode !== S.settings.ai_advice_mode) stale.push('mudaste o modo desde então');
@@ -2826,7 +3013,7 @@ function renderInvestTab(){
     </div>
 
     <div class="card section-gap">
-      <h2>Posições</h2>
+      <div class="flexrow"><h2 style="margin:0">Posições</h2>${S.holdings.length ? `<span class="pill">total: <b>${eur(investmentStats().value)}</b></span>` : ''}</div>
       <div class="sub" style="margin:4px 0 10px">Preços via Yahoo Finance (não oficial, com atraso), convertidos para euros ao câmbio do dia e atualizados sozinhos de 5 em 5 minutos. Em cada categoria o botão <b>+ posição</b> abre a lista de ativos correspondente — bens/commodities, cripto ou ações e ETFs — com procura para o que lá não estiver. Regista a <b>quantidade</b> que tens (é o que a Revolut te mostra); o valor em euros é calculado daí, e assim não depende das duas apps concordarem no preço.</div>
       ${renderHoldingsList(m)}
     </div>
@@ -2949,17 +3136,30 @@ function loadNews(force){
     .finally(() => { const b = $('#newsBox'); if (b) b.innerHTML = renderNews(); });
 }
 
-function renderHoldingsList(m){
-  const byInv = {};
-  S.holdings.forEach(h => (byInv[h.investment_id] = byInv[h.investment_id]||[]).push(h));
+const HV_PAGE = 10;
+function hvState(){
+  if (!S.hv){
+    let saved = {};
+    try { saved = JSON.parse(localStorage.getItem('rumo.hv')) || {}; } catch(e){}
+    S.hv = Object.assign({view: 'pos', cat: 'all', sort: 'value'}, saved, {page: 0, q: ''});
+  }
+  return S.hv;
+}
+function hvSave(){ try { localStorage.setItem('rumo.hv', JSON.stringify({view: S.hv.view, cat: S.hv.cat, sort: S.hv.sort})); } catch(e){} }
 
+function renderHoldingsList(m){
+  const HV = hvState();
+  const invById = {}; m.investimentos.forEach(i => invById[i.id] = i);
   let totalValue = 0, totalCost = 0, quotedValue = 0;
-  const groups = m.investimentos.map(inv => {
-    const items = byInv[inv.id] || [];
-    const rows = items.map(h => {
+  S.holdings.forEach(h => {
+    const isManual = h.manual_value !== null && h.manual_value !== undefined;
+    if (isManual) totalValue += h.current_value || 0;
+    else if (h.price_info && h.price_info.ok){ totalValue += h.current_value; quotedValue += h.current_value; totalCost += h.cost_basis; }
+  });
+  const rowOf = h => {
+
       const isManual = h.manual_value !== null && h.manual_value !== undefined;
       if (isManual) {
-        totalValue += h.current_value || 0;
         return `
         <div class="item-row" data-id="${h.id}" style="grid-template-columns:1fr 110px 90px 34px">
           <span>${escAttr(h.name || h.ticker || 'posição')} <span class="muted small">(valor manual)</span></span>
@@ -2969,7 +3169,6 @@ function renderHoldingsList(m){
         </div>`;
       }
       const hasPrice = h.price_info && h.price_info.ok;
-      if (hasPrice) { totalValue += h.current_value; quotedValue += h.current_value; totalCost += h.cost_basis; }
       const qtyInfo = (hasPrice
         ? `${eur(h.current_value)} · investido ${eur(h.cost_basis)}`
         : 'sem cotação') + ` <button class="linklike f-h-edit" title="editar quantidade e quanto investiste">✎</button>`;
@@ -2981,13 +3180,64 @@ function renderHoldingsList(m){
         <span class="small" style="font-weight:700;color:${hasPrice && h.gain_loss>=0 ? 'var(--good)' : hasPrice ? 'var(--bad)' : 'var(--dim)'}">${hasPrice ? eur(h.gain_loss) + (h.gain_loss_pct==null ? '' : ' ('+h.gain_loss_pct.toFixed(1)+'%)') : '—'}</span>
         <button class="ghost icon-btn f-h-del">✕</button>
       </div>`;
-    }).join('');
-    return `
-      <div class="cat-group">
-        <div class="cat-head"><span class="cat-title">${emoBtn('inv', inv.name, '📊')}<span>${escAttr(inv.name)}</span></span><button class="ghost small f-h-add" data-inv="${inv.id}">+ posição</button></div>
-        ${rows || '<div class="sub" style="padding:6px 8px">sem posições nesta categoria</div>'}
-      </div>`;
-  }).join('');
+  };
+  const stat = items => ({
+    n: items.length,
+    val: items.reduce((a, h) => a + (h.current_value || 0), 0),
+    cost: items.reduce((a, h) => a + (h.cost_basis || 0), 0),
+    gain: items.reduce((a, h) => a + (h.cost_basis ? (h.gain_loss || 0) : 0), 0),
+  });
+  const col = v => v >= 0 ? 'var(--good)' : 'var(--bad)';
+  const cats = m.investimentos.map(inv => ({inv, items: S.holdings.filter(h => h.investment_id === inv.id)}));
+  if (HV.cat !== 'all' && !invById[HV.cat]) HV.cat = 'all';
+  const all = stat(S.holdings);
+
+  const toggle = `<div class="seg hview" role="tablist" aria-label="vista">
+      <button type="button" role="tab" aria-selected="${HV.view === 'pos'}" class="${HV.view === 'pos' ? 'on' : ''}" data-hview="pos">☰ Posições</button>
+      <button type="button" role="tab" aria-selected="${HV.view === 'tot'}" class="${HV.view === 'tot' ? 'on' : ''}" data-hview="tot">◔ Totais por categoria</button></div>`;
+
+  let body = '';
+  if (HV.view === 'tot'){
+    const rows = cats.map(({inv, items}) => ({inv, st: stat(items), items})).sort((a, b) => b.st.val - a.st.val);
+    const tot = all.val || 1;
+    body = `<div class="split-bar" style="height:26px;margin:12px 0">${rows.filter(r => r.st.val > 0).map((r, i) => `<div style="width:${(r.st.val / tot * 100).toFixed(2)}%;background:hsl(${(i * 47 + 255) % 360} 60% 58%)">${r.st.val / tot > 0.1 ? escAttr(r.inv.name) : ''}</div>`).join('')}</div>
+      <div class="grid cols-3">${rows.map((r, i) => {
+        const best = r.items.filter(h => h.cost_basis).sort((a, b) => b.gain_loss_pct - a.gain_loss_pct);
+        const actual = r.st.val / tot * 100, target = (r.inv.pct || 0) * 100;
+        return `<button type="button" class="htile" data-hcat="${r.inv.id}" style="--c:hsl(${(i * 47 + 255) % 360} 60% 58%)"${tipAttr(tipRows(r.inv.name, [['Valor atual', eur(r.st.val)], r.st.cost ? ['Investido', eur(r.st.cost)] : null, r.st.cost ? ['Ganho / perda', (r.st.gain >= 0 ? '+' : '−') + eur(Math.abs(r.st.gain))] : null, ['Posições', String(r.st.n)]], 'Clica para ver as posições desta categoria.', 'var(--purple)'))}>
+          <span class="ht-head">${emojiFor('inv', r.inv.name, '📊')} <b>${escAttr(r.inv.name)}</b><small>${r.st.n} ${r.st.n === 1 ? 'posição' : 'posições'}</small></span>
+          <span class="ht-val">${eur(r.st.val)}</span>
+          ${r.st.cost ? `<span class="ht-gain" style="color:${col(r.st.gain)}">${r.st.gain >= 0 ? '▲' : '▼'} ${eur(Math.abs(r.st.gain))} (${fmtPct(r.st.gain / r.st.cost)}%)</span><span class="small muted">investido ${eur(r.st.cost)}</span>` : '<span class="small muted">sem custo registado</span>'}
+          <span class="ht-w"><i style="width:${Math.min(100, actual).toFixed(1)}%"></i></span>
+          <span class="small muted">${actual.toFixed(0)}% do total · alvo ${target.toFixed(0)}%</span>
+          ${best.length ? `<span class="small muted">melhor ${escAttr(best[0].ticker || best[0].name)} ${best[0].gain_loss_pct >= 0 ? '+' : ''}${best[0].gain_loss_pct.toFixed(1)}% · pior ${escAttr(best[best.length - 1].ticker || best[best.length - 1].name)} ${best[best.length - 1].gain_loss_pct >= 0 ? '+' : ''}${best[best.length - 1].gain_loss_pct.toFixed(1)}%</span>` : ''}
+        </button>`; }).join('')}</div>`;
+  } else {
+    const chip = (id, label, st, emoji) => `<span class="hchip${String(HV.cat) === String(id) ? ' on' : ''}"><button type="button" data-hcat="${id}">${emoji ? emoji + ' ' : ''}${label} <small>${st.n} · ${eur(st.val)}</small></button>${id !== 'all' ? `<button type="button" class="f-h-add hadd" data-inv="${id}" title="adicionar posição a ${escAttr(label)}" aria-label="adicionar posição">+</button>` : ''}</span>`;
+    const chips = `<div class="hchips">${chip('all', 'Todas', all, '')}${cats.map(({inv, items}) => chip(inv.id, escAttr(inv.name), stat(items), emojiFor('inv', inv.name, '📊'))).join('')}</div>`;
+    let list = HV.cat === 'all' ? S.holdings.slice() : S.holdings.filter(h => String(h.investment_id) === String(HV.cat));
+    const q = HV.q.trim().toLowerCase();
+    if (q) list = list.filter(h => `${h.ticker || ''} ${h.name || ''}`.toLowerCase().includes(q));
+    const sorters = {
+      value: (a, b) => (b.current_value || 0) - (a.current_value || 0),
+      gain: (a, b) => (b.gain_loss_pct ?? -1e9) - (a.gain_loss_pct ?? -1e9),
+      loss: (a, b) => (a.gain_loss_pct ?? 1e9) - (b.gain_loss_pct ?? 1e9),
+      name: (a, b) => String(a.ticker || a.name || '').localeCompare(String(b.ticker || b.name || '')),
+    };
+    list.sort(sorters[HV.sort] || sorters.value);
+    const pages = Math.max(1, Math.ceil(list.length / HV_PAGE));
+    HV.page = Math.max(0, Math.min(pages - 1, HV.page));
+    const slice = list.slice(HV.page * HV_PAGE, HV.page * HV_PAGE + HV_PAGE);
+    const nums = [];
+    for (let i = 0; i < pages; i++) if (i === 0 || i === pages - 1 || Math.abs(i - HV.page) <= 1) nums.push(i); else if (nums[nums.length - 1] !== '…') nums.push('…');
+    const pager = pages > 1 ? `<div class="hpager"><span class="small muted">${HV.page * HV_PAGE + 1}–${Math.min(list.length, HV.page * HV_PAGE + HV_PAGE)} de ${list.length}</span>
+        <span class="row" style="gap:4px"><button type="button" class="small ghost" data-hpage="${HV.page - 1}" ${HV.page === 0 ? 'disabled' : ''}>‹</button>${nums.map(n => n === '…' ? '<span class="muted">…</span>' : `<button type="button" class="small${n === HV.page ? ' primary' : ' ghost'}" data-hpage="${n}">${n + 1}</button>`).join('')}<button type="button" class="small ghost" data-hpage="${HV.page + 1}" ${HV.page >= pages - 1 ? 'disabled' : ''}>›</button></span></div>` : '';
+    body = `${chips}
+      <div class="hbar"><input id="hq" type="search" value="${escAttr(HV.q)}" placeholder="procurar por símbolo ou nome" aria-label="procurar posições">
+        <select id="hsort" aria-label="ordenar"><option value="value"${HV.sort === 'value' ? ' selected' : ''}>maior valor</option><option value="gain"${HV.sort === 'gain' ? ' selected' : ''}>maior ganho %</option><option value="loss"${HV.sort === 'loss' ? ' selected' : ''}>maior perda %</option><option value="name"${HV.sort === 'name' ? ' selected' : ''}>nome A-Z</option></select></div>
+      <div class="hlist">${slice.map(h => { const inv = invById[h.investment_id], r = rowOf(h); return HV.cat === 'all' && inv ? r.replace('<span>', `<span><span class="hcat-chip">${emojiFor('inv', inv.name, '📊')} ${escAttr(inv.name)}</span> `) : r; }).join('') || `<div class="sub" style="padding:14px 8px">${q ? 'nenhuma posição encontrada.' : 'sem posições nesta categoria.'}</div>`}</div>
+      ${pager}`;
+  }
 
   const delta = quotedValue - totalCost;
   const manualValue = totalValue - quotedValue;
@@ -2999,7 +3249,7 @@ function renderHoldingsList(m){
       ${manualValue > 0 ? `<span class="small muted">dos quais ${eur(manualValue)} em valores manuais, sem ganho/perda calculável</span>` : ''}
     </div>` : '';
 
-  return groups + summary;
+  return `<div class="hhead">${toggle}</div>${body}${summary}`;
 }
 
 async function reloadAfterPotEdit(m){
@@ -3093,6 +3343,11 @@ function wirePotCards(scope, reload){
     };
     const goalDate = card.querySelector('.f-goal-date');
     if (goalDate) goalDate.onchange = e => patchOne({goal_date: e.target.value || null});
+    card.querySelector('.f-perf').onclick = () => openPerformance(kind === 'inv' ? 'inv' : 'pot', id);
+    $$('.ymode button', card).forEach(b => b.onclick = () => patchOne({rate_mode: b.dataset.rm}));
+    const rv = card.querySelector('.f-rate-val'), rt = card.querySelector('.f-rate-tax');
+    if (rv) rv.onchange = e => patchOne({rate_value: toNum(e.target.value) || 0});
+    if (rt) rt.onchange = e => patchOne({rate_tax: Math.min(100, toNum(e.target.value) || 0)});
     card.querySelector('.f-del').onclick = async () => {
       if (!confirm('Remover este cofre/categoria? O histórico acumulado mantém-se.')) return;
       await api('DELETE', endpoint+id);
@@ -3109,7 +3364,7 @@ function wirePotsTab(m){
   }, 300);
 
   const SPLIT_KEYS = {geral: 'split_geral', cofres: 'split_cofres', investimentos: 'split_investimentos'};
-  const pctTxt = v => (v * 100).toFixed(1).replace('.', ',') + '%';
+  const pctTxt = v => (v * 100).toFixed(1).replace('.', DEC) + '%';
   const onSplitChange = (key) => (e) => {
     let val = Math.max(0, Math.min(1, (toNum(e.target.value) || 0) / 100));
     const auto = S.settings.auto_balance_geral !== false;
@@ -3130,6 +3385,8 @@ function wirePotsTab(m){
     }
     patchMonth(fields);
   };
+  $$('[data-goto]', $('#tab-pots')).forEach(a => a.onclick = () => { const t = $(a.dataset.goto); if (t) t.scrollIntoView({behavior: 'smooth', block: 'start'}); });
+  $$('[data-showtab]', $('#tab-pots')).forEach(a => a.onclick = () => showTab(a.dataset.showtab));
   $$('.stiles .v.editable', $('#tab-pots')).forEach(v => onEditGesture(v, () => {
     if (v.querySelector('input')) return;
     const key = SPLIT_KEYS[v.dataset.edit], base = m.poupanca_total;
@@ -3459,6 +3716,13 @@ function wireHoldings(m){
     }
   };
 
+  const HVs = hvState(), rerender = () => { hvSave(); renderInvestTab(); };
+  $$('[data-hview]', $('#tab-invest')).forEach(b => b.onclick = () => { HVs.view = b.dataset.hview; HVs.page = 0; rerender(); });
+  $$('[data-hcat]', $('#tab-invest')).forEach(b => b.onclick = () => { HVs.cat = b.dataset.hcat === 'all' ? 'all' : Number(b.dataset.hcat); HVs.view = 'pos'; HVs.page = 0; HVs.q = ''; rerender(); });
+  $$('[data-hpage]', $('#tab-invest')).forEach(b => b.onclick = () => { HVs.page = Number(b.dataset.hpage); renderInvestTab(); });
+  const hq = $('#hq'); if (hq) hq.oninput = debounce(e => { HVs.q = e.target.value; HVs.page = 0; renderInvestTab(); }, 200);
+  const hsort = $('#hsort'); if (hsort) hsort.onchange = e => { HVs.sort = e.target.value; HVs.page = 0; rerender(); };
+
   $$('.f-h-add', $('#tab-invest')).forEach(btn => btn.onclick = () => {
     const inv = m.investimentos.find(i => i.id === parseInt(btn.dataset.inv));
     openHoldingPicker(parseInt(btn.dataset.inv), inv ? inv.name : 'investimento', reload);
@@ -3535,11 +3799,13 @@ function renderSettingsTab(){
     <div class="card">
       <h2>Contas</h2>
       <div class="sub" style="margin-bottom:6px">Por omissão a app trata tudo como uma só conta. Liga o que usas: os cálculos e os ecrãs adaptam-se.</div>
+      <div class="field" style="max-width:420px;margin-bottom:10px"><label>Language · Idioma</label>
+        <select id="f-lang"><option value="en" ${LANG === 'en' ? 'selected' : ''}>English</option><option value="pt-PT" ${LANG === 'pt-PT' ? 'selected' : ''}>Português (Portugal)</option></select></div>
       <div class="field" style="max-width:420px;margin-bottom:10px"><label>Moeda (código de 3 letras)</label>
         <input id="f-currency" list="cur-list" maxlength="3" value="${escAttr(CURRENCY)}" style="text-transform:uppercase">
         <datalist id="cur-list">${['EUR','USD','GBP','BRL','CHF','CAD','AUD','JPY','SEK','NOK','DKK','PLN','CZK','HUF','RON','MXN','ARS','CLP','COP','INR','CNY','ZAR','AOA','MZN','CVE'].map(c => `<option value="${c}">`).join('')}</datalist>
         <div class="sub" style="margin-top:3px">Muda o símbolo e a moeda em que as posições de outras moedas se convertem. Os valores já escritos não são convertidos.</div></div>
-      <div class="field" style="max-width:420px"><label>Nome da conta${transferOn() ? ' principal (onde entra o ordenado)' : ''}</label><input id="f-acc-s" value="${escAttr(accLabel('S'))}"></div>
+      <div class="field" style="max-width:420px"><label>${transferOn() ? 'Nome da conta principal (onde entra o ordenado)' : 'Nome da conta'}</label><input id="f-acc-s" value="${escAttr(accLabel('S'))}"></div>
       <label class="switch"><input type="checkbox" id="f-use-transfer" ${transferOn() ? 'checked' : ''}><span class="sw"></span>
         <span><b>Transferir todos os meses para uma segunda conta</b><small>O que sobra da conta principal depois das despesas passa em parte (a %) para a segunda, de onde sai a poupança. Para quem separa «conta do dia a dia» e «conta de poupança».</small></span></label>
       <div class="opt-body" ${transferOn() ? '' : 'hidden'} id="opt-transfer">
@@ -3647,6 +3913,11 @@ function wireSettingsTab(){
     await api('PATCH', '/api/settings', {[key]: on});
     S.settings[key] = on;
     await reloadAllMonths();
+  };
+  $('#f-lang').onchange = async e => {
+    await api('PATCH', '/api/settings', {language: e.target.value});
+    try { localStorage.setItem('rumo.lang', e.target.value); } catch(err){}
+    location.reload();
   };
   $('#f-currency').onchange = async e => {
     const code = e.target.value.trim().toUpperCase();
@@ -3801,5 +4072,7 @@ function wireSettingsTab(){
 // ------------------------------------------------------------------- init --
 checkAuth();
 </script>
+<script src="perf.js"></script>
+<script src="invdash.js"></script>
 </body>
 </html>

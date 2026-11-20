@@ -4,7 +4,7 @@ A self-hosted personal budgeting app that adapts to how you bank. One account an
 
 ![Rumo: dashboard on desktop and the monthly flow on a phone](docs/screenshots/hero.png)
 
-> The interface is in European Portuguese (pt-PT) for now. Screens, calculations and options are described here in English. [Leia em português](README.pt-PT.md).
+> The interface is in **English by default**. Switch to European Portuguese (pt-PT) in **Settings → Language**; the choice is stored with your data. [Leia em português](README.pt-PT.md).
 
 ## What it does
 
@@ -16,7 +16,10 @@ A self-hosted personal budgeting app that adapts to how you bank. One account an
 - **Savings split.** A monthly savings rate divided into a general reserve, targeted pots (with goals and dates) and investments. The split **balances itself to 100%**: pick which one absorbs the difference; if what you type no longer fits, it is clamped to the maximum possible and you are told. Double-click (double-tap or long-press on touch) an amount to type it instead of a percentage.
 - **Percentage or amount, your choice.** Transfer and savings rates take either; the other follows.
 - **Dashboard.** Net worth with its composition, savings rate, trends, spending by category and where the money sits. Every card, slice and bar explains itself on hover or tap.
-- **Investments.** Positions with live prices (Yahoo Finance, unofficial and delayed) or manual values, weights against your targets, and history.
+- **Pots that earn interest.** Each pot is *fixed* (kept as it is), *variable* (spent over time) or a *goal* (saved up by a date). Add a gross annual rate (TANB, with an optional tax rate) or a fixed monthly amount; Rumo forecasts the interest and brings the goal date forward accordingly.
+- **Real versus expected.** Every month you can type the **real balance at the end of last month** of any pot, investment, the general reserve or the joint account. Rumo compares it with what it expected (opening balance plus what you set aside) and keeps the difference: what the money earned or lost.
+- **Detailed performance.** A drawer on the dashboard with the history and growth of every account, pot and investment: capital over time, expected against real, best and worst months, forecast with interest, and a short reading that depends on the pot type (fixed, variable, goal) or the investment type (crypto, stocks, goods, automatic).
+- **Investments.** Positions with live prices (Yahoo Finance, unofficial and delayed) or manual values. The positions list has category tabs with totals, search, sorting and pages, and a switch to a **totals-by-category** view. The dashboard panel shows the trend, allocation, target against real, the biggest risers and fallers (since purchase or today), contributions against market gains, concentration, currency exposure and a plain-language reading.
 - **Any currency.** Set your currency in Settings; positions in other currencies are converted into it.
 - **Optional AI advice** with your own key (Anthropic, OpenAI, Gemini or DeepSeek). Nothing leaves your server unless you ask.
 - **Step-by-step transfers.** A checklist of what to move this month.
@@ -26,6 +29,9 @@ A self-hosted personal budgeting app that adapts to how you bank. One account an
 |---|---|
 | ![Monthly flow, two accounts](docs/screenshots/month-two-accounts.png) | ![Monthly flow, one account](docs/screenshots/month-one-account.png) |
 | ![Shared household account](docs/screenshots/joint-account.png) | ![Savings split](docs/screenshots/savings.png) |
+| ![Pots that earn interest](docs/screenshots/pot-interest.png) | ![Detailed performance](docs/screenshots/performance.png) |
+| ![Real versus expected](docs/screenshots/performance-detail.png) | ![Positions, paged](docs/screenshots/positions.png) |
+| ![Totals by category](docs/screenshots/positions-totals.png) | ![Investments on the dashboard](docs/screenshots/investments-dashboard.png) |
 | ![Dashboard tooltips](docs/screenshots/dashboard-tooltips.png) | ![Settings](docs/screenshots/settings.png) |
 
 ![On phones](docs/screenshots/mobile.png)
@@ -42,7 +48,7 @@ python3 server.py            # http://127.0.0.1:8099
 
 On first visit, create your user. Data lives in `~/.local/share/rumo/rumo.db` (override with `--data-dir` or `RUMO_DATA_DIR`). To start from scratch, delete that file.
 
-`seed.json` provides a starter catalogue of expense lines, pots and investment categories. Edit them in the app.
+`seed.json` provides a starter catalogue of expense lines, pots and investment categories (in English). Edit them in the app. An existing database created before the language option keeps Portuguese.
 
 ### Behind a reverse proxy (recommended for anything beyond localhost)
 
@@ -54,14 +60,15 @@ Everything is in **Settings**:
 
 | Option | Default | Effect |
 |---|---|---|
+| Language | English | English or European Portuguese (pt-PT). Stored with your data and applied on every device. |
 | Currency | EUR | Symbol and the currency that positions in other currencies convert to. Existing amounts are not converted. |
-| Name of the main account | Conta | Used everywhere. |
+| Name of the main account | Account | Used everywhere. |
 | Transfer to a second account every month | off | Adds the second account, the transfer slider (% or amount) and the second balance to the month, dashboard and transfer checklist. With it off, everything is treated as one account. |
 | Shared household account | off | Adds the shared-account card, the "shared" choice on each expense line and the household series in charts. Name, partner and how the household is split are editable. |
 | Balance the savings split to 100% automatically | on | Pick which share (general, pots or investments) takes the difference. |
 | Rounding of pots and investments | on | Rounds each pot down to €0.50 steps and moves the leftover to the general reserve. |
 
-Two accounts is the maximum this version calculates; the transfer percentage is set per month. A database created before these options existed keeps both schemes on, so upgrading changes nothing.
+Two accounts is the maximum this version calculates; the transfer percentage is set per month. A database created before these options existed keeps both schemes on and stays in Portuguese, so upgrading changes nothing.
 
 ## Configuration
 

@@ -1135,6 +1135,10 @@ def call_ai(db: sqlite3.Connection, prompt: str) -> tuple[bool, str]:
     api_key = json.loads(key_row["value"]) if key_row else ""
     if not api_key:
         return False, f"Adiciona a tua chave da API ({provider}) em Definições para usar isto."
+    lang_row = db.execute("SELECT value FROM settings WHERE key='language'").fetchone()
+    if not lang_row or json.loads(lang_row["value"]) != "pt-PT":
+        prompt += ("\n\nIMPORTANT: write the whole answer in English, whatever language the instructions above are in "
+                   "(ignore any request to write in Portuguese). Keep any JSON keys and section markers exactly as requested.")
     return fn(api_key, prompt)
 
 
@@ -1334,6 +1338,29 @@ def pot_pace(db: sqlite3.Connection, months: int = 6) -> dict[int, dict]:
             for pid, v in acc.items() if v}
 
 
+RATE_MODES = ("none", "tanb", "eur")
+
+
+def pot_interest(pot: dict, balance: float) -> float:
+    """Juro líquido previsto num mês sobre `balance`: TANB (% ao ano, antes de imposto) ou um valor fixo em moeda."""
+    mode = pot.get("rate_mode") or "none"
+    value = float(pot.get("rate_value") or 0)
+    if mode == "tanb":
+        return max(0.0, balance) * value / 100 / 12 * (1 - float(pot.get("rate_tax") or 0) / 100)
+    if mode == "eur":
+        return value
+    return 0.0
+
+
+def pot_projection(pot: dict, balance: float, per_month: float, months: int = 12) -> list[float]:
+    """Saldo mês a mês (sem o ponto de partida): entrada habitual + juro previsto sobre o saldo anterior."""
+    out, bal = [], balance
+    for _ in range(months):
+        bal += per_month + pot_interest(pot, bal)
+        out.append(round(bal, 2))
+    return out
+
+
 def goal_progress(pot: dict, pace: dict | None) -> dict | None:
     """Where a pot stands against its goal, in euros and in months."""
     goal = pot.get("goal_amount")
@@ -1354,8 +1381,16 @@ def goal_progress(pot: dict, pace: dict | None) -> dict | None:
     }
     if missing <= 0:
         out["months_needed"] = 0
-    elif rate > 0:
-        out["months_needed"] = math.ceil(missing / rate)
+    elif rate > 0 or pot_interest(pot, have) > 0:
+        # Com juros o saldo cresce mais depressa do que a entrada: simula-se mês a mês.
+        if (pot.get("rate_mode") or "none") == "none":
+            out["months_needed"] = math.ceil(missing / rate)
+        else:
+            bal, n = have, 0
+            while bal < goal and n < 1200:
+                bal += rate + pot_interest(pot, bal)
+                n += 1
+            out["months_needed"] = n if bal >= goal else None
     if out["months_needed"] is not None:
         today = datetime.date.today()
         n = out["months_needed"]
@@ -1374,6 +1409,16 @@ def _pot_payload(pot: dict, contributed: float, accumulated: float, pace: dict |
         "per_month": (pace or {}).get("per_month"),
     }
     out["goal"] = goal_progress(out, pace)
+    if (pot.get("rate_mode") or "none") != "none":
+        per = (pace or {}).get("per_month") or 0
+        proj = pot_projection(pot, accumulated, per)
+        start = accumulated - contributed
+        out["interest"] = {
+            "this_month": round(pot_interest(pot, start), 2),
+            "per_month_next": round(pot_interest(pot, accumulated), 2),
+            "next12": round(sum(pot_interest(pot, b) for b in [accumulated] + proj[:-1]), 2),
+            "projection": proj,
+        }
     return out
 
 
@@ -1870,7 +1915,10 @@ CREATE TABLE IF NOT EXISTS pots (
   active INTEGER NOT NULL DEFAULT 1,
   sort_order INTEGER NOT NULL DEFAULT 0,
   goal_amount REAL,
-  goal_date TEXT
+  goal_date TEXT,
+  rate_mode TEXT NOT NULL DEFAULT 'none',
+  rate_value REAL NOT NULL DEFAULT 0,
+  rate_tax REAL NOT NULL DEFAULT 0
 );
 CREATE TABLE IF NOT EXISTS investments (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -1879,6 +1927,15 @@ CREATE TABLE IF NOT EXISTS investments (
   opening_balance REAL NOT NULL DEFAULT 0,
   active INTEGER NOT NULL DEFAULT 1,
   sort_order INTEGER NOT NULL DEFAULT 0
+);
+CREATE TABLE IF NOT EXISTS balance_checks (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  kind TEXT NOT NULL,
+  item_id INTEGER NOT NULL DEFAULT 0,
+  month_id INTEGER NOT NULL REFERENCES months(id) ON DELETE CASCADE,
+  expected REAL NOT NULL,
+  real REAL NOT NULL,
+  UNIQUE(kind, item_id, month_id)
 );
 CREATE TABLE IF NOT EXISTS pot_snapshots (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -1914,7 +1971,8 @@ CREATE TABLE IF NOT EXISTS holdings (
 """
 
 DEFAULT_SETTINGS = {
-    "account_labels": {"S": "Conta", "R": "Conta 2"},
+    "language": "en",
+    "account_labels": {"S": "Account", "R": "Account 2"},
     # Esquemas opcionais, desligados num servidor novo: com tudo desligado há uma só conta, sem
     # transferências nem conta conjunta. Uma base de dados que já existia fica com ambos ligados
     # (ver init_db), para o comportamento de quem já usava a app não mudar.
@@ -1922,7 +1980,7 @@ DEFAULT_SETTINGS = {
     "use_joint": False,
     "currency": "EUR",
     "geral_opening_balance": 0,
-    "joint_account_name": "Conta Conjunta",
+    "joint_account_name": "Joint account",
     "auto_balance_geral": True,
     "auto_balance_target": "geral",
     "round_pots_enabled": True,
@@ -1935,7 +1993,7 @@ DEFAULT_SETTINGS = {
     "joint_account_opening_balance": 0,
     "ai_advice_mode": "balanced",
     "ai_advice_notes": "",
-    "joint_partner_name": "Parceiro(a)",
+    "joint_partner_name": "Partner",
     # Como se divide a conta da casa: "percent" usa joint_my_share; "income" divide
     # na proporção dos ordenados (o meu do mês contra joint_partner_income).
     "joint_split_mode": "percent",
@@ -2008,6 +2066,10 @@ def migrate_schema(db: sqlite3.Connection) -> None:
         db.execute("ALTER TABLE pots ADD COLUMN goal_amount REAL")
     if "goal_date" not in pot_cols:
         db.execute("ALTER TABLE pots ADD COLUMN goal_date TEXT")
+    for col, ddl in (("rate_mode", "TEXT NOT NULL DEFAULT 'none'"), ("rate_value", "REAL NOT NULL DEFAULT 0"),
+                     ("rate_tax", "REAL NOT NULL DEFAULT 0")):
+        if col not in pot_cols:
+            db.execute(f"ALTER TABLE pots ADD COLUMN {col} {ddl}")
     holdings_cols = {row[1] for row in db.execute("PRAGMA table_info(holdings)")}
     if holdings_cols and "manual_value" not in holdings_cols:
         db.execute("ALTER TABLE holdings ADD COLUMN manual_value REAL")
@@ -2083,6 +2145,9 @@ def init_db(db_path: Path) -> None:
             # Contas que já tinham nomes escolhidos mantêm-nos; só uma base antiga sem nomes recebe os de antes.
             db.execute("INSERT OR IGNORE INTO settings(key, value) VALUES ('account_labels', ?)",
                        (json.dumps({"S": "Santander", "R": "Revolut"}),))
+            # Uma base que já existia estava em português: mantém o idioma e os nomes de antes.
+            for k, v in (("language", "pt-PT"), ("joint_account_name", "Conta Conjunta"), ("joint_partner_name", "Parceiro(a)")):
+                db.execute("INSERT OR IGNORE INTO settings(key, value) VALUES (?, ?)", (k, json.dumps(v, ensure_ascii=False)))
         db.commit()
         for k, v in DEFAULT_SETTINGS.items():
             db.execute(
@@ -2323,8 +2388,8 @@ def joint_split(db: sqlite3.Connection, month: sqlite3.Row, total: float) -> dic
 # Uma secção de rendimento (LUCROS e afins) é dinheiro que entra: soma à conta da
 # linha em vez de sair dela, e fica fora das despesas e da conta da casa. Antes
 # contava como despesa -- 50 € em «OLX» tiravam 50 € ao mês.
-INCOME_CATEGORIES = ("LUCROS", "LUCRO", "RENDIMENTOS", "RECEITAS", "ENTRADAS")
-NOT_INCOME_SQL = "upper(trim(category)) NOT IN ('LUCROS', 'LUCRO', 'RENDIMENTOS', 'RECEITAS', 'ENTRADAS')"
+INCOME_CATEGORIES = ("LUCROS", "LUCRO", "RENDIMENTOS", "RECEITAS", "ENTRADAS", "INCOME", "PROFITS", "EARNINGS")
+NOT_INCOME_SQL = "upper(trim(category)) NOT IN ('LUCROS', 'LUCRO', 'RENDIMENTOS', 'RECEITAS', 'ENTRADAS', 'INCOME', 'PROFITS', 'EARNINGS')"
 
 
 def is_income_line(e: Any) -> bool:
@@ -2513,6 +2578,26 @@ def contributions_sum(db: sqlite3.Connection, snapshot_table: str, id_col: str, 
     return db.execute(query, params).fetchone()["total"]
 
 
+def log_check(db: sqlite3.Connection, kind: str, item_id: int, expected: float, real: float) -> None:
+    """Regista o valor real que o utilizador escreveu para o fim do mês anterior ao mês aberto, ao lado do que a
+    app esperava (saldo de abertura + entradas). A diferença é o que rendeu (juros, ganhos) ou se perdeu. O
+    esperado fica o do primeiro registo do mês: corrigir o real duas vezes não apaga a diferença."""
+    mid = latest_open_month_id(db)
+    if mid is None:
+        return
+    db.execute(
+        """INSERT INTO balance_checks(kind, item_id, month_id, expected, real) VALUES (?, ?, ?, ?, ?)
+           ON CONFLICT(kind, item_id, month_id) DO UPDATE SET real = excluded.real""",
+        (kind, item_id, mid, round(expected, 2), round(real, 2)),
+    )
+
+
+def expected_balance(db: sqlite3.Connection, table: str, snapshot_table: str, id_col: str, entity_id: int) -> float:
+    row = db.execute(f"SELECT opening_balance FROM {table} WHERE id=?", (entity_id,)).fetchone()
+    return (row["opening_balance"] if row else 0.0) + contributions_sum(
+        db, snapshot_table, id_col, entity_id, exclude_month_id=latest_open_month_id(db))
+
+
 def solve_opening_balance(db: sqlite3.Connection, snapshot_table: str, id_col: str, entity_id: int, target_previous_balance: float) -> float:
     """The user types the REAL balance as of the end of last month (before this month's
     still-accruing contribution). Back-solve opening_balance so that
@@ -2643,6 +2728,8 @@ def month_summary(db: sqlite3.Connection, month_id: int) -> dict:
         "joint_total_this_month": round(joint["me"] + joint["partner"], 2),
         "joint_account_acumulado": joint_account_acumulado,
         "joint_account_opening_balance": joint_opening,
+        "checks": {f"{r['kind']}:{r['item_id']}": {"expected": r["expected"], "real": r["real"]}
+                   for r in db.execute("SELECT kind, item_id, expected, real FROM balance_checks WHERE month_id=?", (m["id"],))},
         "expenses": [
             dict(e) | {"mutable": bool(e["mutable"]), "closed": bool(e["closed"]), "joint_account": bool(e["joint_account"])}
             for e in expenses
@@ -3470,12 +3557,23 @@ class RumoHandler(SimpleHTTPRequestHandler):
         if m and method == "PATCH":
             if "target_accumulated" in data:
                 data = dict(data)
-                data["opening_balance"] = solve_opening_balance(
-                    db, "pot_snapshots", "pot_id", int(m.group(1)), float(data.pop("target_accumulated"))
-                )
+                real = float(data.pop("target_accumulated"))
+                log_check(db, "pot", int(m.group(1)), expected_balance(db, "pots", "pot_snapshots", "pot_id", int(m.group(1))), real)
+                data["opening_balance"] = solve_opening_balance(db, "pot_snapshots", "pot_id", int(m.group(1)), real)
+            if "rate_mode" in data and data["rate_mode"] not in RATE_MODES:
+                self.error_json(400, "Rate mode: use none, tanb or eur")
+                return
+            data = dict(data)
+            for k, hi in (("rate_value", 1e9), ("rate_tax", 100)):
+                if k in data:
+                    try:
+                        data[k] = min(hi, max(0.0, float(data[k] or 0)))
+                    except (TypeError, ValueError):
+                        data[k] = 0.0
             self.update_generic(db, "pots", int(m.group(1)), data,
                                 {"name", "pct", "active", "sort_order", "opening_balance",
-                                 "goal_amount", "goal_date", "ai_locked", "level", "purpose"}, coerce_bool={"ai_locked"})
+                                 "goal_amount", "goal_date", "ai_locked", "level", "purpose",
+                                 "rate_mode", "rate_value", "rate_tax"}, coerce_bool={"ai_locked"})
             self.recompute_current(db)
             self.write_json(200, {"ok": True})
             return
@@ -3495,9 +3593,9 @@ class RumoHandler(SimpleHTTPRequestHandler):
         if m and method == "PATCH":
             if "target_accumulated" in data:
                 data = dict(data)
-                data["opening_balance"] = solve_opening_balance(
-                    db, "investment_snapshots", "investment_id", int(m.group(1)), float(data.pop("target_accumulated"))
-                )
+                real = float(data.pop("target_accumulated"))
+                log_check(db, "inv", int(m.group(1)), expected_balance(db, "investments", "investment_snapshots", "investment_id", int(m.group(1))), real)
+                data["opening_balance"] = solve_opening_balance(db, "investment_snapshots", "investment_id", int(m.group(1)), real)
             self.update_generic(db, "investments", int(m.group(1)), data, {"name", "pct", "active", "sort_order", "opening_balance", "ai_locked"}, coerce_bool={"ai_locked"})
             self.recompute_current(db)
             self.write_json(200, {"ok": True})
@@ -3581,14 +3679,23 @@ class RumoHandler(SimpleHTTPRequestHandler):
                        WHERE mo.historical_import = 0 AND (? IS NULL OR mo.id != ?)""",
                     (current_month_id, current_month_id),
                 ).fetchone()["total"]
-                data["geral_opening_balance"] = float(data.pop("geral_target_accumulated")) - geral_contrib
+                real = float(data.pop("geral_target_accumulated"))
+                old_open = db.execute("SELECT value FROM settings WHERE key='geral_opening_balance'").fetchone()
+                log_check(db, "geral", 0, (float(json.loads(old_open["value"])) if old_open else 0.0) + geral_contrib, real)
+                data["geral_opening_balance"] = real - geral_contrib
             if "joint_account_target_accumulated" in data:
                 # O valor real no fim do mês anterior ao mês que se está a ver.
                 ref = db.execute("SELECT year, month FROM months WHERE id=?",
                                  (data.pop("joint_month_id", None) or latest_open_month_id(db),)).fetchone()
                 before = joint_net_sum(db, ref["year"], ref["month"] - 1) if ref else 0.0
-                data["joint_account_opening_balance"] = round(float(data.pop("joint_account_target_accumulated")) - before, 2)
+                real = float(data.pop("joint_account_target_accumulated"))
+                old_open = db.execute("SELECT value FROM settings WHERE key='joint_account_opening_balance'").fetchone()
+                log_check(db, "joint", 0, (float(json.loads(old_open["value"])) if old_open else 0.0) + before, real)
+                data["joint_account_opening_balance"] = round(real - before, 2)
             data.pop("joint_month_id", None)
+            if "language" in data and data["language"] not in ("en", "pt-PT"):
+                self.error_json(400, "Language: use en or pt-PT")
+                return
             if "currency" in data:
                 code = str(data["currency"] or "").strip().upper()
                 if not re.fullmatch(r"[A-Z]{3}", code):
