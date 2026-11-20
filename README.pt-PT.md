@@ -53,4 +53,4 @@ Feita para **uma pessoa ou uma casa**: todos os utilizadores partilham os mesmos
 
 ## Licença
 
-GPL-3.0, ver [LICENSE](LICENSE). Faz parte do [DL Forge](https://dlforge.dungenlabs.com/), a divisão de software da DungenLabs.
+MIT, livre para uso pessoal e comercial, ver [LICENSE](LICENSE). Faz parte do [DL Forge](https://dlforge.dungenlabs.com/), a divisão de software da DungenLabs.

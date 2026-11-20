@@ -1092,10 +1092,7 @@ function wireRebalance(kind, m){
   };
 }
 
-function renderMovesTab(){
-  const el = $('#tab-moves');
-  const m = curMonth();
-  if (!m){ el.innerHTML = '<div class="card">Cria um mês primeiro.</div>'; return; }
+function moveSteps(m){
   const accS = accLabel('S'), accR = transferOn() ? accLabel('R') : accLabel('S'), accJ = jointName(), from = jointFrom();
   const jointMe = Number(m.joint_transfer_total) || 0;
   const lines = (filter) => m.expenses.filter(filter).map(e => [e.name, e.planned, e.id]).filter(([, v]) => v);
@@ -1143,6 +1140,15 @@ function renderMovesTab(){
     });
   }
 
+  return steps;
+}
+
+function renderMovesTab(){
+  const el = $('#tab-moves');
+  const m = curMonth();
+  if (!m){ el.innerHTML = '<div class="card">Cria um mês primeiro.</div>'; return; }
+  const accS = accLabel('S'), accR = transferOn() ? accLabel('R') : accLabel('S');
+  const steps = moveSteps(m);
   const done = movesDone(m);
   const count = steps.filter(st => done[st.key]).length;
   let group = '';
@@ -2220,7 +2226,19 @@ function wireMonthTab(m){
     renderAll();
   };
   const btnClose = $('#btnClose');
-  if (btnClose) btnClose.onclick = async () => { await api('PATCH', `/api/months/${m.id}`, {closed: true}); await reloadMonths(); toast('mês fechado'); };
+  if (btnClose) btnClose.onclick = async () => {
+    const done = movesDone(m), pend = moveSteps(m).filter(st => !done[st.key]);
+    if (pend.length){
+      const md = openModal(`<h2 style="margin:0 0 6px">Ainda faltam movimentos</h2>
+        <div class="sub">Só podes fechar o mês com todos os movimentos feitos. Faltam ${pend.length}:</div>
+        <ul style="margin:10px 0 14px;padding-left:18px">${pend.map(st => `<li>${st.title.replace(/<[^>]*>/g, '')} — <b>${eur(st.amount)}</b></li>`).join('')}</ul>
+        <div class="acts2"><button type="button" class="btn" data-close>Fechar aviso</button><button type="button" class="btn pri" id="goMoves">Ir aos movimentos</button></div>`);
+      md.$('[data-close]').onclick = md.close;
+      md.$('#goMoves').onclick = () => { md.close(); goToSource('moves', '#tab-moves'); };
+      return;
+    }
+    await api('PATCH', `/api/months/${m.id}`, {closed: true}); await reloadMonths(); toast('mês fechado');
+  };
   const btnReopen = $('#btnReopen');
   if (btnReopen) btnReopen.onclick = async () => { await api('PATCH', `/api/months/${m.id}`, {closed: false}); await reloadMonths(); toast('mês reaberto'); };
   $$('.f-estimate', $('#tab-month')).forEach(btn => btn.onclick = async () => {

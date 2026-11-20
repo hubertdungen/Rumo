@@ -110,4 +110,4 @@ node test_emoji.js                                    # emoji matching
 
 ## Licence
 
-GPL-3.0, see [LICENSE](LICENSE). Part of [DL Forge](https://dlforge.dungenlabs.com/), the DungenLabs software division.
+MIT, free for personal and commercial use, see [LICENSE](LICENSE). Part of [DL Forge](https://dlforge.dungenlabs.com/), the DungenLabs software division.
