@@ -1118,14 +1118,17 @@ function renderMovesTab(){
       detail('de onde vem', inS) + (m.santander_anterior ? `<div class="sub">já lá estavam ${eur(m.santander_anterior)} do mês anterior</div>` : ''), ['month', '#f-ordenado']);
   if (sum(gains('R')) > 0) add('Entradas', 'in-R', `Confirmar o que entrou na ${accR}`, [`→ ${accR}`], sum(gains('R')), detail('de onde vem', gains('R')), ['month', `#tab-month .cat-group[data-cat="${CSS.escape((m.expenses.find(e => isIncomeCat(e.category)) || {}).category || 'LUCROS')}"]`]);
   if (sum(own('S')) > 0) add('Pagar', 'pay-S', `Pagar as despesas da ${accS}`, [accS, '→ despesas'], sum(own('S')), detail('o que se paga', own('S')), ['month', '#catListMonth']);
+  // A conta conjunta vive na segunda conta: faz-se UMA transferência real (a tua parte + a da casa) e depois a segunda conta passa a da casa.
+  const viaR = transferOn() && jointOn() && jointMe > 0 && from === 'S';
+  const trfAmount = (m.trf_revolut || 0) + (viaR ? jointMe : 0);
+  if (transferOn() && trfAmount > 0) add('Transferir', 'trf-R', `Passar para a ${accR}`, [accS, '→', accR], trfAmount,
+      `<div class="sub">${viaR ? `${eur(m.trf_revolut)} para ti (${pct(m.pct_revolut)} do que sobra) + ${eur(jointMe)} para a ${accJ}` : `${pct(m.pct_revolut)} do que sobra na ${accS} depois das despesas`}</div>`, ['month', '#f-pctrevolut']);
   if (jointOn() && jointMe > 0){
     const house = lines(e => e.joint_account && !isIncomeCat(e.category));
-    add('Transferir', 'joint', `A tua parte da casa para a ${accJ}`, [accLabel(from), '→', accJ], jointMe,
+    add('Transferir', 'joint', `A tua parte da casa para a ${accJ}`, [accLabel(viaR ? 'R' : from), '→', accJ], jointMe,
         detail(`despesas da casa (${eur(m.joint_expenses_total)}; a tua parte ${pct(m.joint_share)})`, house)
         + `<div class="sub">${m.joint_extra ? `inclui ${eur(m.joint_extra)} a mais (cada um) · ` : ''}${partnerName()} põe ${eur(m.joint_partner_actual ?? m.joint_partner_predicted ?? 0)}</div>`, ['month', '#f-joint-me']);
   }
-  if (transferOn() && m.trf_revolut > 0) add('Transferir', 'trf-R', `Passar para a ${accR}`, [accS, '→', accR], m.trf_revolut,
-      `<div class="sub">${pct(m.pct_revolut)} do que sobra na ${accS} depois das despesas</div>`, ['month', '#f-pctrevolut']);
   if (sum(own('R')) > 0) add('Pagar', 'pay-R', `Pagar as despesas da ${accR}`, [accR, '→ despesas'], sum(own('R')), detail('o que se paga', own('R')), ['month', '#catListMonth']);
   if (!m.no_savings){
     if (m.geral_this_month > 0) add('Pôr de parte', 'geral', 'Poupança Geral', [accR, '→', 'Geral'], m.geral_this_month,
