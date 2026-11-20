@@ -1,0 +1,698 @@
+{
+  "months": [],
+  "pots": [
+    {
+      "name": "Saúde",
+      "pct": 0.22,
+      "monthly": []
+    },
+    {
+      "name": "Carro",
+      "pct": 0.31,
+      "monthly": []
+    },
+    {
+      "name": "Férias",
+      "pct": 0.04,
+      "monthly": []
+    },
+    {
+      "name": "Gadgets",
+      "pct": 0.04,
+      "monthly": []
+    },
+    {
+      "name": "Oficina",
+      "pct": 0.11,
+      "monthly": []
+    },
+    {
+      "name": "Hobbies",
+      "pct": 0.04,
+      "monthly": []
+    },
+    {
+      "name": "Casa",
+      "pct": 0.035,
+      "monthly": []
+    },
+    {
+      "name": "Informática",
+      "pct": 0.08,
+      "monthly": []
+    },
+    {
+      "name": "Ferramentas IA",
+      "pct": 0.02,
+      "monthly": []
+    },
+    {
+      "name": "Entretenimento",
+      "pct": 0.055,
+      "monthly": []
+    },
+    {
+      "name": "Formação",
+      "pct": 0.05,
+      "monthly": []
+    }
+  ],
+  "investimentos": [
+    {
+      "name": "Bens",
+      "pct": 0.26,
+      "monthly": []
+    },
+    {
+      "name": "Crypto",
+      "pct": 0.305,
+      "monthly": []
+    },
+    {
+      "name": "Acções",
+      "pct": 0.355,
+      "monthly": []
+    },
+    {
+      "name": "Fundo",
+      "pct": 0.08,
+      "monthly": []
+    }
+  ],
+  "split": {
+    "geral": 0.12,
+    "cofres": 0.58,
+    "investimentos": 0.3
+  },
+  "geral_accumulated": 0,
+  "expense_items_seed": [
+    {
+      "category": "CARRO",
+      "name": "Combustível",
+      "obs": null,
+      "planned": 155,
+      "mutable": true,
+      "account": "S"
+    },
+    {
+      "category": "CARRO",
+      "name": "ViaVerde",
+      "obs": null,
+      "planned": 35,
+      "mutable": false,
+      "account": "S"
+    },
+    {
+      "category": "CARRO",
+      "name": "Manutenção",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": false,
+      "account": "S"
+    },
+    {
+      "category": "CARRO",
+      "name": "Upgrades",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": false,
+      "account": "S"
+    },
+    {
+      "category": "CARRO",
+      "name": "Outros",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": false,
+      "account": "S"
+    },
+    {
+      "category": "CRÉDITOS",
+      "name": "Telemóvel",
+      "obs": null,
+      "planned": 35,
+      "mutable": false,
+      "account": "S"
+    },
+    {
+      "category": "CRÉDITOS",
+      "name": "Cartão",
+      "obs": "Cartão de crédito",
+      "planned": 80,
+      "mutable": false,
+      "account": "S"
+    },
+    {
+      "category": "CRÉDITOS",
+      "name": "-",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": false,
+      "account": "S"
+    },
+    {
+      "category": "CRÉDITOS",
+      "name": "Outros",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": false,
+      "account": "S"
+    },
+    {
+      "category": "DESPESAS GER.",
+      "name": "Supermercado",
+      "obs": null,
+      "planned": 145,
+      "mutable": true,
+      "account": "S"
+    },
+    {
+      "category": "DESPESAS GER.",
+      "name": "Transportes ",
+      "obs": "Passe",
+      "planned": 0.0,
+      "mutable": false,
+      "account": "S"
+    },
+    {
+      "category": "DESPESAS GER.",
+      "name": "Barbeiro",
+      "obs": null,
+      "planned": 19.65,
+      "mutable": false,
+      "account": "S"
+    },
+    {
+      "category": "DESPESAS GER.",
+      "name": "Transportes",
+      "obs": "Autocarro",
+      "planned": 0.0,
+      "mutable": false,
+      "account": "S"
+    },
+    {
+      "category": "DESPESAS GER.",
+      "name": "Compras Online",
+      "obs": null,
+      "planned": 35,
+      "mutable": true,
+      "account": "S"
+    },
+    {
+      "category": "DESPESAS GER.",
+      "name": "DIY",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": true,
+      "account": "S"
+    },
+    {
+      "category": "DESPESAS GER.",
+      "name": "Prendas",
+      "obs": null,
+      "planned": 130,
+      "mutable": true,
+      "account": "S"
+    },
+    {
+      "category": "DESPESAS GER.",
+      "name": "Diversos",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": true,
+      "account": "S"
+    },
+    {
+      "category": "DESPESAS GER.",
+      "name": "Investimentos",
+      "obs": "Material de oficina",
+      "planned": 40,
+      "mutable": false,
+      "account": "S"
+    },
+    {
+      "category": "DESPORTO",
+      "name": "Proteína",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": false,
+      "account": "S"
+    },
+    {
+      "category": "DESPORTO",
+      "name": "Creatina",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": false,
+      "account": "S"
+    },
+    {
+      "category": "DESPORTO",
+      "name": "Material Desporto",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": false,
+      "account": "S"
+    },
+    {
+      "category": "DESPORTO",
+      "name": "Roupa Desportiva",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": false,
+      "account": "S"
+    },
+    {
+      "category": "DESPORTO",
+      "name": "Hobbies",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": false,
+      "account": "S"
+    },
+    {
+      "category": "DESPORTO",
+      "name": "Mensalidades Desp.",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": false,
+      "account": "S"
+    },
+    {
+      "category": "ESTADO",
+      "name": "Impostos/Taxas",
+      "obs": "IUC",
+      "planned": 65,
+      "mutable": false,
+      "account": "S"
+    },
+    {
+      "category": "ESTADO",
+      "name": "Multas",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": false,
+      "account": "S"
+    },
+    {
+      "category": "ESTADO",
+      "name": "Devoluções/Reembolsos",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": false,
+      "account": "S"
+    },
+    {
+      "category": "ESTADO",
+      "name": "Outros",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": false,
+      "account": "S"
+    },
+    {
+      "category": "ENTRETENIMENTO",
+      "name": "Queijos e Vinho",
+      "obs": null,
+      "planned": 19.65,
+      "mutable": true,
+      "account": "S"
+    },
+    {
+      "category": "ENTRETENIMENTO",
+      "name": "Comer Fora (ST)",
+      "obs": null,
+      "planned": 26.2,
+      "mutable": true,
+      "account": "S"
+    },
+    {
+      "category": "ENTRETENIMENTO",
+      "name": "Comer Fora (RV)",
+      "obs": null,
+      "planned": 26.2,
+      "mutable": true,
+      "account": "R"
+    },
+    {
+      "category": "ENTRETENIMENTO",
+      "name": "Saídas à noite",
+      "obs": null,
+      "planned": 26.2,
+      "mutable": true,
+      "account": "R"
+    },
+    {
+      "category": "ENTRETENIMENTO",
+      "name": "Jogos",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": true,
+      "account": "R"
+    },
+    {
+      "category": "ENTRETENIMENTO",
+      "name": "Outros",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": true,
+      "account": "S"
+    },
+    {
+      "category": "FORMAÇÃO",
+      "name": "Propinas",
+      "obs": null,
+      "planned": 495,
+      "mutable": false,
+      "account": "S"
+    },
+    {
+      "category": "FORMAÇÃO",
+      "name": "Material Fac.",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": true,
+      "account": "S"
+    },
+    {
+      "category": "FORMAÇÃO",
+      "name": "Multas",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": false,
+      "account": "S"
+    },
+    {
+      "category": "FORMAÇÃO",
+      "name": "Outros",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": false,
+      "account": "S"
+    },
+    {
+      "category": "INFORMÁTICA",
+      "name": "Manutenção Desktop",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": false,
+      "account": "S"
+    },
+    {
+      "category": "INFORMÁTICA",
+      "name": "Manutenção Portátil",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": false,
+      "account": "S"
+    },
+    {
+      "category": "INFORMÁTICA",
+      "name": "Upgrades",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": true,
+      "account": "S"
+    },
+    {
+      "category": "INFORMÁTICA",
+      "name": "Oficina",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": false,
+      "account": "S"
+    },
+    {
+      "category": "INFORMÁTICA",
+      "name": "Softwares",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": false,
+      "account": "S"
+    },
+    {
+      "category": "INFORMÁTICA",
+      "name": "Outros",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": false,
+      "account": "S"
+    },
+    {
+      "category": "LUCROS",
+      "name": "Design",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": false,
+      "account": "S"
+    },
+    {
+      "category": "LUCROS",
+      "name": "Impressão 3D",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": false,
+      "account": "S"
+    },
+    {
+      "category": "LUCROS",
+      "name": "Vendas Online",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": false,
+      "account": "R"
+    },
+    {
+      "category": "LUCROS",
+      "name": "Olx",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": false,
+      "account": "S"
+    },
+    {
+      "category": "LUCROS",
+      "name": "Investimento",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": false,
+      "account": "S"
+    },
+    {
+      "category": "LUCROS",
+      "name": "Outros",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": false,
+      "account": "R"
+    },
+    {
+      "category": "OUTROS",
+      "name": "Outras Despesas",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": false,
+      "account": "R"
+    },
+    {
+      "category": "OUTROS",
+      "name": "Imprevistos",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": false,
+      "account": "R"
+    },
+    {
+      "category": "OUTROS",
+      "name": "Levantmt. Númerário",
+      "obs": "MB",
+      "planned": 0.0,
+      "mutable": false,
+      "account": "S"
+    },
+    {
+      "category": "OUTROS",
+      "name": "Outros",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": false,
+      "account": "R"
+    },
+    {
+      "category": "REDE",
+      "name": "Tlm + Internet",
+      "obs": "Internet",
+      "planned": 45,
+      "mutable": false,
+      "account": "S"
+    },
+    {
+      "category": "ROUPA",
+      "name": "Roupa Geral",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": true,
+      "account": "S"
+    },
+    {
+      "category": "ROUPA",
+      "name": "T-Shirts",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": true,
+      "account": "S"
+    },
+    {
+      "category": "ROUPA",
+      "name": "Calças",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": true,
+      "account": "S"
+    },
+    {
+      "category": "ROUPA",
+      "name": "Camisas",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": true,
+      "account": "S"
+    },
+    {
+      "category": "ROUPA",
+      "name": "Sapatos/Botas",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": true,
+      "account": "S"
+    },
+    {
+      "category": "ROUPA",
+      "name": "Acessórios",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": true,
+      "account": "S"
+    },
+    {
+      "category": "ROUPA",
+      "name": "Outros",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": false,
+      "account": "S"
+    },
+    {
+      "category": "SAÚDE",
+      "name": "Reserva",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": false,
+      "account": "S"
+    },
+    {
+      "category": "SAÚDE",
+      "name": "Medicação",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": false,
+      "account": "S"
+    },
+    {
+      "category": "SAÚDE",
+      "name": "Imprevistos",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": false,
+      "account": "S"
+    },
+    {
+      "category": "SAÚDE",
+      "name": "Consultas & Tratamentos",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": false,
+      "account": "S"
+    },
+    {
+      "category": "SAÚDE",
+      "name": "Outros",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": false,
+      "account": "S"
+    },
+    {
+      "category": "SUBSCRIÇÕES",
+      "name": "Ferramentas IA",
+      "obs": null,
+      "planned": 14.95,
+      "mutable": false,
+      "account": "R"
+    },
+    {
+      "category": "SUBSCRIÇÕES",
+      "name": "Spotify",
+      "obs": null,
+      "planned": 5.88,
+      "mutable": false,
+      "account": "R"
+    },
+    {
+      "category": "SUBSCRIÇÕES",
+      "name": "OpenAi",
+      "obs": null,
+      "planned": 30,
+      "mutable": false,
+      "account": "R"
+    },
+    {
+      "category": "SUBSCRIÇÕES",
+      "name": "OpenAi API",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": false,
+      "account": "R"
+    },
+    {
+      "category": "SUBSCRIÇÕES",
+      "name": "Adobe",
+      "obs": null,
+      "planned": 16.1,
+      "mutable": false,
+      "account": "R"
+    },
+    {
+      "category": "SUBSCRIÇÕES",
+      "name": "Google One / Gemini",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": false,
+      "account": "R"
+    },
+    {
+      "category": "SUBSCRIÇÕES",
+      "name": "Revolut",
+      "obs": null,
+      "planned": 11.78,
+      "mutable": false,
+      "account": "R"
+    },
+    {
+      "category": "SUBSCRIÇÕES",
+      "name": "Claude",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": false,
+      "account": "R"
+    },
+    {
+      "category": "SUBSCRIÇÕES",
+      "name": "Outros",
+      "obs": null,
+      "planned": 0.0,
+      "mutable": false,
+      "account": "R"
+    }
+  ]
+}

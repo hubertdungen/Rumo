@@ -1,0 +1,12 @@
+{
+  "name": "Rumo",
+  "short_name": "Rumo",
+  "description": "Gestão financeira pessoal — rendimento, despesas, poupanças e investimentos.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b0f14",
+  "theme_color": "#0b0f14",
+  "icons": [
+    { "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='rgM' x1='4' y1='54' x2='56' y2='8' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%230e8f66'/%3E%3Cstop offset='0.55' stop-color='%2322c58b'/%3E%3Cstop offset='1' stop-color='%237ff0d6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='32' cy='32' r='30' fill='%230b0f14'/%3E%3Ccircle cx='32' cy='32' r='29' fill='none' stroke='url(%23rgM)' stroke-width='2' opacity='0.55'/%3E%3Cpath d='M32 10 L49 33 L32 26.5 L15 33 Z' fill='url(%23rgM)'/%3E%3Ccircle cx='32' cy='17.5' r='3.2' fill='%230b0f14'/%3E%3C/svg%3E", "sizes": "192x192 512x512", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
